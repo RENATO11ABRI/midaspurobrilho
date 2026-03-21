@@ -453,9 +453,11 @@
   }
   .package-btn.primary:hover { background: var(--green-dark); border-color: var(--green-dark); }
 
-  .pkg-bronze .package-header { background: linear-gradient(135deg, #7A5230, #B87B4A); color: white; }
+  .pkg-bronze .package-header { background: linear-gradient(135deg, #1B7B3A, #2E9E55); color: white; }
   .pkg-silver .package-header { background: linear-gradient(135deg, #4A5868, #7A8B9D); color: white; }
   .pkg-gold .package-header   { background: linear-gradient(135deg, #8B6508, #C9A000); color: white; }
+  .pkg-gold.popular { border: 2.5px solid var(--gold); box-shadow: 0 0 30px rgba(232,160,0,0.3), 0 16px 50px rgba(26,122,60,0.15); }
+  .pkg-gold.popular:hover { box-shadow: 0 0 40px rgba(232,160,0,0.4), 0 20px 60px rgba(26,122,60,0.2); }
   .pkg-diamond .package-header { background: linear-gradient(135deg, #1255A0, #1878D5); color: white; }
 
   /* ═══════════ FREE BANNER ═══════════ */
@@ -1067,67 +1069,82 @@
   </div>
   <div class="services-grid">
     <div class="service-card featured fade-up">
-      <img class="service-img" src="limpeza-domestica.jpg" alt="Limpeza Doméstica" loading="lazy">
-      <div class="service-name">Limpeza Doméstica</div>
-      <div class="service-desc">Salas, quartos, cozinha e casas de banho — limpeza completa com produtos incluídos e equipa fardada.</div>
-      <div class="service-price">A partir de 15.000 Kz</div>
-      <a href="https://wa.me/244953612474?text=Olá! Quero agendar uma Limpeza Doméstica." class="service-link">Agendar agora →</a>
+      <img class="service-img" src="servicos-profissionais-afro-americanos-em-uniforme-fazendo-limpeza-de-primavera-de-uma-casa-moderna.jpg" alt="Empregadas Domesticas" loading="lazy">
+      <div class="service-name">Empregadas Domesticas</div>
+      <div class="service-desc">Salas, quartos, cozinha e casas de banho -- limpeza completa com produtos incluidos e equipa fardada. Hora, diaria, semanal ou fixa mensal.</div>
+      <div class="service-price">Hora: 2.500 - 4.000 Kz</div>
+      <div style="display:flex; flex-wrap:wrap; gap:6px; margin-top:8px;">
+        <span class="service-price" style="font-size:0.75rem; padding:4px 10px;">Diaria: 8.000 - 12.000 Kz</span>
+        <span class="service-price" style="font-size:0.75rem; padding:4px 10px;">Semanal: 25.000 - 40.000 Kz</span>
+        <span class="service-price" style="font-size:0.75rem; padding:4px 10px;">Fixa mensal: 70.000 - 120.000 Kz</span>
+      </div>
+      <a href="https://wa.me/244953612474?text=Ola! Quero agendar uma Empregada Domestica." class="service-link">Agendar agora &#8594;</a>
     </div>
     <div class="service-card fade-up d1">
-      <img class="service-img" src="limpeza-pos-obra.jpg" alt="Limpeza Pós-Obra" loading="lazy">
-      <div class="service-name">Limpeza Pós-Obra</div>
-      <div class="service-desc">Espaço pronto para habitar após obras. Remoção de pó de cimento, tinta e resíduos de construção.</div>
-      <div class="service-price">A partir de 80.000 Kz</div>
-      <a href="https://wa.me/244953612474?text=Olá! Quero agendar Limpeza Pós-Obra." class="service-link">Agendar agora →</a>
-    </div>
-    <div class="service-card fade-up d2">
-      <img class="service-img" src="lavandaria.jpg" alt="Lavandaria" loading="lazy">
-      <div class="service-name">Lavandaria + Entrega</div>
-      <div class="service-desc">Recolha, lavagem, engomadoria e entrega em 24-48h. Sem sair de casa — roupas impecáveis com toque Midas.</div>
-      <div class="service-price">A partir de 1.900 Kz/kg</div>
-      <a href="https://wa.me/244953612474?text=Olá! Quero usar o serviço de Lavandaria." class="service-link">Agendar agora →</a>
-    </div>
-    <div class="service-card fade-up">
-      <img class="service-img" src="babysitting.jpg" alt="Babysitting" loading="lazy">
-      <div class="service-name">Babysitting Qualificado</div>
-      <div class="service-desc">Cuidadoras com formação em saúde. Ligação directa ao Centro Médico Midas para emergências.</div>
-      <div class="service-price">A partir de 5.900 Kz</div>
-      <a href="https://wa.me/244953612474?text=Olá! Quero agendar Babysitting." class="service-link">Agendar agora →</a>
-    </div>
-    <div class="service-card fade-up d1">
-      <img class="service-img" src="limpeza-empresarial.jpg" alt="Limpeza Empresarial" loading="lazy">
+      <img class="service-img" src="full-shot-men-cleaning-office.jpg" alt="Limpeza Empresarial" loading="lazy">
       <div class="service-name">Limpeza Empresarial</div>
-      <div class="service-desc">Escritórios, clínicas, escolas e restaurantes — contratos mensais com relatório de serviço incluído.</div>
-      <div class="service-price">A partir de 89.900 Kz/mês</div>
-      <a href="https://wa.me/244953612474?text=Olá! Quero saber sobre Limpeza Empresarial." class="service-link">Pedir orçamento →</a>
+      <div class="service-desc">Escritorios, clinicas, escolas e restaurantes -- contratos mensais com relatorio de servico incluido.</div>
+      <div class="service-price">80.000 - 150.000 Kz/colaborador</div>
+      <a href="https://wa.me/244953612474?text=Ola! Quero saber sobre Limpeza Empresarial." class="service-link">Pedir orcamento &#8594;</a>
     </div>
     <div class="service-card fade-up d2">
-      <img class="service-img" src="estofos-sofas.jpg" alt="Estofos e Sofás" loading="lazy">
-      <div class="service-name">Estofos e Sofás</div>
-      <div class="service-desc">Limpeza profunda de sofás, colchões e tapetes. Remoção de manchas, odores e ácaros.</div>
-      <div class="service-price">A partir de 14.900 Kz</div>
-      <a href="https://wa.me/244953612474?text=Olá! Quero limpar meus estofos/sofás." class="service-link">Agendar agora →</a>
+      <img class="service-img" src="uma-mulher-esta-sorrindo-para-um-grupo-de-criancas-brincando-com-legos.jpg" alt="Babysitting" loading="lazy">
+      <div class="service-name">Babysitting Qualificado</div>
+      <div class="service-desc">Cuidadoras com formacao em saude. Ligacao directa ao Centro Medico Midas para emergencias.</div>
+      <div class="service-price">Hora: 2.500 - 4.000 Kz</div>
+      <div style="display:flex; flex-wrap:wrap; gap:6px; margin-top:8px;">
+        <span class="service-price" style="font-size:0.75rem; padding:4px 10px;">Diario: 9.900 - 15.000 Kz</span>
+        <span class="service-price" style="font-size:0.75rem; padding:4px 10px;">Mensal: 60.000 - 140.000 Kz</span>
+      </div>
+      <a href="https://wa.me/244953612474?text=Ola! Quero agendar Babysitting." class="service-link">Agendar agora &#8594;</a>
     </div>
     <div class="service-card fade-up">
-      <img class="service-img" src="cozinheira.jpg" alt="Cozinheira" loading="lazy">
-      <div class="service-name">Cozinheira ao Domicílio</div>
-      <div class="service-desc">Refeições caseiras preparadas na sua casa. Ideal para famílias ocupadas ou eventos íntimos.</div>
-      <div class="service-price">A partir de 8.900 Kz</div>
-      <a href="https://wa.me/244953612474?text=Olá! Quero agendar Cozinheira ao Domicílio." class="service-link">Agendar agora →</a>
+      <img class="service-img" src="verificacao-de-poeira-e-mulher-negra-limpando-uma-inspecao-de-moveis-de-prateleira-e-rotina-de-trabalho-domestico-tarefas-de-higiene-de-servico-e-limpador-africano-fazendo-servico-de-limpeza-com-foco-na-sala-de-estar-.jpg" alt="Cozinheiras" loading="lazy">
+      <div class="service-name">Cozinheiras ao Domicilio</div>
+      <div class="service-desc">Refeicoes caseiras preparadas na sua casa. Ideal para familias ocupadas ou eventos intimos.</div>
+      <div class="service-price">Dia: 10.000 - 20.000 Kz</div>
+      <div style="display:flex; flex-wrap:wrap; gap:6px; margin-top:8px;">
+        <span class="service-price" style="font-size:0.75rem; padding:4px 10px;">Mensal: ate 180.000 Kz</span>
+      </div>
+      <a href="https://wa.me/244953612474?text=Ola! Quero agendar Cozinheira ao Domicilio." class="service-link">Agendar agora &#8594;</a>
     </div>
     <div class="service-card fade-up d1">
-      <img class="service-img" src="limpeza-profunda.jpg" alt="Limpeza Profunda" loading="lazy">
-      <div class="service-name">Limpeza Profunda</div>
-      <div class="service-desc">Limpeza completa e detalhada de todo o espaço — incluindo áreas difíceis, janelas e varandas.</div>
-      <div class="service-price">A partir de 25.000 Kz</div>
-      <a href="https://wa.me/244953612474?text=Olá! Quero agendar Limpeza Profunda." class="service-link">Agendar agora →</a>
+      <img class="service-img" src="rafrican-american-man-doing-laundry_273609-21182.jpg" alt="Lavandaria e Engomadoria" loading="lazy">
+      <div class="service-name">Lavandaria e Engomadoria</div>
+      <div class="service-desc">Recolha, lavagem, engomadoria e entrega. Sem sair de casa -- roupas impecaveis com toque Midas. Diferencial: Recolha + entrega sem sair de casa.</div>
+      <div class="service-price">5kg: 9.900 Kz | 10kg: 18.000 Kz</div>
+      <div style="display:flex; flex-wrap:wrap; gap:6px; margin-top:8px;">
+        <span class="service-price" style="font-size:0.75rem; padding:4px 10px;">Mensal: ate 80.000 Kz</span>
+      </div>
+      <a href="https://wa.me/244953612474?text=Ola! Quero usar o servico de Lavandaria." class="service-link">Agendar agora &#8594;</a>
     </div>
     <div class="service-card fade-up d2">
-      <img class="service-img" src="limpeza-eventos.jpg" alt="Limpeza de Eventos" loading="lazy">
+      <img class="service-img" src="processo-de-limpeza-seco-para-remover-manchas-e-sujeira-sofa-em-casa-servico-de-limpeza-profissional-aplicacao-de-detergente-no-sofa-para-limpeza-seco-usando-maquina-extratora.jpg" alt="Estofos e Sofas" loading="lazy">
+      <div class="service-name">Estofos e Sofas</div>
+      <div class="service-desc">Limpeza profunda de sofas, colchoes e tapetes. Remocao de manchas, odores e acaros.</div>
+      <div class="service-price">A partir de 14.900 Kz</div>
+      <a href="https://wa.me/244953612474?text=Ola! Quero limpar meus estofos/sofas." class="service-link">Agendar agora &#8594;</a>
+    </div>
+    <div class="service-card fade-up">
+      <img class="service-img" src="retrato-de-um-homem-trabalhando-na-construcao.jpg" alt="Limpeza Pos-Obra" loading="lazy">
+      <div class="service-name">Limpeza Pos-Obra</div>
+      <div class="service-desc">Espaco pronto para habitar apos obras. Remocao de po de cimento, tinta e residuos de construcao.</div>
+      <div class="service-price">A partir de 80.000 Kz</div>
+      <a href="https://wa.me/244953612474?text=Ola! Quero agendar Limpeza Pos-Obra." class="service-link">Agendar agora &#8594;</a>
+    </div>
+    <div class="service-card fade-up d1">
+      <img class="service-img" src="trabalhador-africano-de-servico-de-limpeza-profissional-em-macacao-limpa-as-janelas-com-equipamentos-especiais.jpg" alt="Limpeza Profunda" loading="lazy">
+      <div class="service-name">Limpeza Profunda</div>
+      <div class="service-desc">Limpeza completa e detalhada de todo o espaco -- incluindo areas dificeis, janelas e varandas.</div>
+      <div class="service-price">A partir de 25.000 Kz</div>
+      <a href="https://wa.me/244953612474?text=Ola! Quero agendar Limpeza Profunda." class="service-link">Agendar agora &#8594;</a>
+    </div>
+    <div class="service-card fade-up d2">
+      <img class="service-img" src="high-angle-man-cleaning-railing.jpg" alt="Limpeza de Eventos" loading="lazy">
       <div class="service-name">Limpeza de Eventos</div>
-      <div class="service-desc">Antes, durante e depois do evento. Casamentos, festas, conferências — tudo impecável.</div>
-      <div class="service-price">Orçamento personalizado</div>
-      <a href="https://wa.me/244953612474?text=Olá! Preciso de limpeza para um evento." class="service-link">Pedir orçamento →</a>
+      <div class="service-desc">Antes, durante e depois do evento. Casamentos, festas, conferencias -- tudo impecavel.</div>
+      <div class="service-price">Orcamento personalizado</div>
+      <a href="https://wa.me/244953612474?text=Ola! Preciso de limpeza para um evento." class="service-link">Pedir orcamento &#8594;</a>
     </div>
   </div>
 </section>
@@ -1191,36 +1208,37 @@
       <div class="package-header">
         <span class="package-badge"><svg class="icon-xl" style="color:currentColor"><use href="#ic-bronze"/></svg></span>
         <div class="package-name">Brilho</div>
-        <div class="package-tagline">Para quem quer começar com qualidade Midas</div>
-        <div class="package-price">29.900 Kz <span>/mês</span></div>
+        <div class="package-tagline">Ideal para quem quer experimentar o padrao Midas</div>
+        <div class="package-price">29.900 Kz <span>/mes</span></div>
       </div>
       <div class="package-body">
         <ul class="package-includes">
-          <li><svg class="icon-sm" style="color:var(--green);flex-shrink:0;margin-top:2px"><use href="#ic-check"/></svg> 1 limpeza doméstica/mês</li>
-          <li><svg class="icon-sm" style="color:var(--green);flex-shrink:0;margin-top:2px"><use href="#ic-check"/></svg> Produtos incluídos</li>
-          <li><svg class="icon-sm" style="color:var(--green);flex-shrink:0;margin-top:2px"><use href="#ic-check"/></svg> Garantia de satisfação</li>
-          <li><svg class="icon-sm" style="color:var(--gold);flex-shrink:0;margin-top:2px"><use href="#ic-star"/></svg> Compras ao domicílio grátis</li>
-          <li><svg class="icon-sm" style="color:var(--gold);flex-shrink:0;margin-top:2px"><use href="#ic-star"/></svg> Acompanhante hospitalar grátis</li>
+          <li><svg class="icon-sm" style="color:var(--green);flex-shrink:0;margin-top:2px"><use href="#ic-check"/></svg> 1 limpeza domestica/mes</li>
+          <li><svg class="icon-sm" style="color:var(--green);flex-shrink:0;margin-top:2px"><use href="#ic-check"/></svg> Produtos incluidos</li>
+          <li><svg class="icon-sm" style="color:var(--green);flex-shrink:0;margin-top:2px"><use href="#ic-check"/></svg> Garantia de satisfacao</li>
+          <li><svg class="icon-sm" style="color:var(--gold);flex-shrink:0;margin-top:2px"><use href="#ic-star"/></svg> Bonus: Compras ao domicilio</li>
+          <li><svg class="icon-sm" style="color:var(--gold);flex-shrink:0;margin-top:2px"><use href="#ic-star"/></svg> Bonus: Acompanhante hospitalar</li>
         </ul>
-        <a href="https://wa.me/244953612474?text=Olá! Tenho interesse no Pacote Brilho (29.900 Kz)" class="package-btn">Contratar Brilho</a>
+        <a href="https://wa.me/244953612474?text=Ola! Tenho interesse no Pacote Brilho (29.900 Kz/mes)" class="package-btn">Contratar Brilho</a>
       </div>
     </div>
     <div class="package-card pkg-silver fade-up d1">
       <div class="package-header">
         <span class="package-badge"><svg class="icon-xl" style="color:currentColor"><use href="#ic-silver"/></svg></span>
         <div class="package-name">Prata</div>
-        <div class="package-tagline">A escolha da família activa do Zango</div>
-        <div class="package-price">49.900 Kz <span>/mês</span></div>
+        <div class="package-tagline">Para familias com rotina activa</div>
+        <div class="package-price">49.900 Kz <span>/mes</span></div>
       </div>
       <div class="package-body">
         <ul class="package-includes">
-          <li><svg class="icon-sm" style="color:var(--green);flex-shrink:0;margin-top:2px"><use href="#ic-check"/></svg> 2 limpezas domésticas/mês</li>
-          <li><svg class="icon-sm" style="color:var(--green);flex-shrink:0;margin-top:2px"><use href="#ic-check"/></svg> Lavandaria 5kg + entrega/mês</li>
+          <li><svg class="icon-sm" style="color:var(--green);flex-shrink:0;margin-top:2px"><use href="#ic-check"/></svg> 2 limpezas domesticas/mes</li>
+          <li><svg class="icon-sm" style="color:var(--green);flex-shrink:0;margin-top:2px"><use href="#ic-check"/></svg> Lavandaria + engomadoria (1 ciclo/mes)</li>
+          <li><svg class="icon-sm" style="color:var(--green);flex-shrink:0;margin-top:2px"><use href="#ic-check"/></svg> Entrega incluida</li>
           <li><svg class="icon-sm" style="color:var(--green);flex-shrink:0;margin-top:2px"><use href="#ic-check"/></svg> Prioridade no agendamento</li>
-          <li><svg class="icon-sm" style="color:var(--gold);flex-shrink:0;margin-top:2px"><use href="#ic-star"/></svg> Compras ao domicílio grátis</li>
-          <li><svg class="icon-sm" style="color:var(--gold);flex-shrink:0;margin-top:2px"><use href="#ic-star"/></svg> Acompanhante hospitalar grátis</li>
+          <li><svg class="icon-sm" style="color:var(--gold);flex-shrink:0;margin-top:2px"><use href="#ic-star"/></svg> Bonus: Compras ao domicilio</li>
+          <li><svg class="icon-sm" style="color:var(--gold);flex-shrink:0;margin-top:2px"><use href="#ic-star"/></svg> Bonus: Acompanhante hospitalar</li>
         </ul>
-        <a href="https://wa.me/244953612474?text=Olá! Tenho interesse no Pacote Prata (49.900 Kz)" class="package-btn">Contratar Prata</a>
+        <a href="https://wa.me/244953612474?text=Ola! Tenho interesse no Pacote Prata (49.900 Kz/mes)" class="package-btn">Contratar Prata</a>
       </div>
     </div>
     <div class="package-card pkg-gold popular fade-up d2">
@@ -1228,36 +1246,37 @@
       <div class="package-header">
         <span class="package-badge"><svg class="icon-xl" style="color:currentColor"><use href="#ic-gold"/></svg></span>
         <div class="package-name">Ouro</div>
-        <div class="package-tagline">O mais popular — limpeza semanal, roupas e estofos</div>
-        <div class="package-price">84.900 Kz <span>/mês</span></div>
+        <div class="package-tagline">Sua casa limpa todos os dias</div>
+        <div class="package-price">84.900 Kz <span>/mes</span></div>
       </div>
       <div class="package-body">
         <ul class="package-includes">
-          <li><svg class="icon-sm" style="color:var(--green);flex-shrink:0;margin-top:2px"><use href="#ic-check"/></svg> 4 limpezas domésticas/mês</li>
-          <li><svg class="icon-sm" style="color:var(--green);flex-shrink:0;margin-top:2px"><use href="#ic-check"/></svg> 2 lavagens de roupa + entrega</li>
-          <li><svg class="icon-sm" style="color:var(--green);flex-shrink:0;margin-top:2px"><use href="#ic-check"/></svg> Limpeza de estofos trimestral</li>
+          <li><svg class="icon-sm" style="color:var(--green);flex-shrink:0;margin-top:2px"><use href="#ic-check"/></svg> 20 limpezas/mes (segunda a sexta)</li>
+          <li><svg class="icon-sm" style="color:var(--green);flex-shrink:0;margin-top:2px"><use href="#ic-check"/></svg> 4 lavagens de roupa/mes</li>
+          <li><svg class="icon-sm" style="color:var(--green);flex-shrink:0;margin-top:2px"><use href="#ic-check"/></svg> Limpeza de estofos (1x/mes)</li>
           <li><svg class="icon-sm" style="color:var(--green);flex-shrink:0;margin-top:2px"><use href="#ic-check"/></svg> Equipa dedicada</li>
-          <li><svg class="icon-sm" style="color:var(--gold);flex-shrink:0;margin-top:2px"><use href="#ic-star"/></svg> Compras + Acompanhante grátis</li>
+          <li><svg class="icon-sm" style="color:var(--gold);flex-shrink:0;margin-top:2px"><use href="#ic-star"/></svg> Bonus: Compras + Acompanhante gratis</li>
         </ul>
-        <a href="https://wa.me/244953612474?text=Olá! Tenho interesse no Pacote Ouro (84.900 Kz)" class="package-btn primary">Contratar Ouro</a>
+        <a href="https://wa.me/244953612474?text=Ola! Tenho interesse no Pacote Ouro (84.900 Kz/mes)" class="package-btn primary">Contratar Ouro</a>
       </div>
     </div>
     <div class="package-card pkg-diamond fade-up d3">
       <div class="package-header">
         <span class="package-badge"><svg class="icon-xl" style="color:currentColor"><use href="#ic-diamond"/></svg></span>
         <div class="package-name">Diamante</div>
-        <div class="package-tagline">Tudo incluído — zero preocupações domésticas</div>
-        <div class="package-price">149.900 Kz <span>/mês</span></div>
+        <div class="package-tagline">Zero preocupacao -- publico premium</div>
+        <div class="package-price">189.900 Kz <span>/mes</span></div>
       </div>
       <div class="package-body">
         <ul class="package-includes">
-          <li><svg class="icon-sm" style="color:var(--green);flex-shrink:0;margin-top:2px"><use href="#ic-check"/></svg> Limpeza ilimitada (3x/semana)</li>
+          <li><svg class="icon-sm" style="color:var(--green);flex-shrink:0;margin-top:2px"><use href="#ic-check"/></svg> 25 limpezas/mes</li>
           <li><svg class="icon-sm" style="color:var(--green);flex-shrink:0;margin-top:2px"><use href="#ic-check"/></svg> Lavandaria ilimitada</li>
-          <li><svg class="icon-sm" style="color:var(--green);flex-shrink:0;margin-top:2px"><use href="#ic-check"/></svg> Babysitting 1x/mês (8h)</li>
-          <li><svg class="icon-sm" style="color:var(--green);flex-shrink:0;margin-top:2px"><use href="#ic-check"/></svg> Cozinheira 4x/mês</li>
-          <li><svg class="icon-sm" style="color:var(--green);flex-shrink:0;margin-top:2px"><use href="#ic-check"/></svg> Gestor de conta pessoal</li>
+          <li><svg class="icon-sm" style="color:var(--green);flex-shrink:0;margin-top:2px"><use href="#ic-check"/></svg> Babysitting ate 15x/mes</li>
+          <li><svg class="icon-sm" style="color:var(--green);flex-shrink:0;margin-top:2px"><use href="#ic-check"/></svg> Cozinheira ate 15x/mes</li>
+          <li><svg class="icon-sm" style="color:var(--green);flex-shrink:0;margin-top:2px"><use href="#ic-check"/></svg> Gestor pessoal dedicado</li>
+          <li><svg class="icon-sm" style="color:var(--green);flex-shrink:0;margin-top:2px"><use href="#ic-check"/></svg> Todos os beneficios incluidos</li>
         </ul>
-        <a href="https://wa.me/244953612474?text=Olá! Tenho interesse no Pacote Diamante (149.900 Kz)" class="package-btn">Contratar Diamante</a>
+        <a href="https://wa.me/244953612474?text=Ola! Tenho interesse no Pacote Diamante (189.900 Kz/mes)" class="package-btn">Contratar Diamante</a>
       </div>
     </div>
   </div>
@@ -1267,25 +1286,29 @@
 <div class="free-banner fade-up">
   <div class="free-banner-inner">
     <div class="free-banner-text">
-      <h3>2 Serviços Grátis<br>para clientes mensais</h3>
-      <p>Todos os clientes com contrato mensal activo recebem estes dois serviços — porque fidelidade merece recompensa.</p>
+      <h3>2 Servicos Gratis<br>para clientes mensais</h3>
+      <p>Todos os clientes com contrato mensal activo recebem estes dois servicos -- porque fidelidade merece recompensa.</p>
+      <div style="margin-top:12px; background:rgba(0,0,0,0.08); border-radius:12px; padding:10px 16px; display:inline-flex; align-items:center; gap:8px;">
+        <svg class="icon-md" style="color:var(--dark);flex-shrink:0"><use href="#ic-award"/></svg>
+        <span style="font-size:0.82rem; font-weight:700; color:var(--dark);">Poucos oferecem isso em Angola -- diferencial exclusivo Midas</span>
+      </div>
     </div>
     <div class="free-services">
-      <div class="free-service">
+      <div class="free-service" style="border:2px solid rgba(0,0,0,0.15);">
         <div class="free-service-icon"><svg class="icon-xl" style="color:var(--dark)"><use href="#ic-cart"/></svg></div>
         <div>
-          <div class="free-service-name">Compras ao Domicílio</div>
-          <div class="free-service-desc">Fazemos as suas compras e entregamos em casa. Até 2x/mês.</div>
+          <div class="free-service-name">Compras ao Domicilio</div>
+          <div class="free-service-desc">Fazemos as suas compras e entregamos em casa. Ate 2x/mes. Servico unico no mercado angolano.</div>
         </div>
-        <div class="free-tag">Grátis</div>
+        <div class="free-tag">Gratis</div>
       </div>
-      <div class="free-service">
+      <div class="free-service" style="border:2px solid rgba(0,0,0,0.15);">
         <div class="free-service-icon"><svg class="icon-xl" style="color:var(--dark)"><use href="#ic-hospital"/></svg></div>
         <div>
           <div class="free-service-name">Acompanhante Hospitalar</div>
-          <div class="free-service-desc">Acompanhamento em consulta ou exame. Até 1x/mês (4h).</div>
+          <div class="free-service-desc">Acompanhamento em consulta ou exame. Ate 1x/mes (4h). Diferencial raro em Angola.</div>
         </div>
-        <div class="free-tag">Grátis</div>
+        <div class="free-tag">Gratis</div>
       </div>
     </div>
   </div>
@@ -1487,7 +1510,7 @@
         <div class="launch-new">4.950 Kz</div>
       </div>
       <div class="launch-price-card">
-        <div class="launch-service-name">Sofá (3 lugares)</div>
+        <div class="launch-service-name">Limpeza de Sofa</div>
         <div class="launch-old">19.900 Kz</div>
         <div class="launch-new">9.950 Kz</div>
       </div>
