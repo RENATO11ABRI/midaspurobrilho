@@ -1,0 +1,1749 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Midas PuroBrilho — Nós Limpamos, Você Relaxa</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --green:       #1B7B3A;
+    --green-dark:  #0F5025;
+    --green-mid:   #2E9E55;
+    --green-lite:  #E8F5EC;
+    --green-glow:  rgba(27,123,58,0.15);
+    --gold:        #E8A000;
+    --gold-lite:   #FFF8E1;
+    --gold-bright: #F5B800;
+    --white:       #FFFFFF;
+    --off-white:   #F9FBF9;
+    --dark:        #0D1F14;
+    --grey:        #6B7A6F;
+    --grey-lite:   #F0F5F1;
+    --red:         #C62828;
+    --radius:      16px;
+    --shadow:      0 4px 24px rgba(0,0,0,0.08);
+    --shadow-lg:   0 16px 48px rgba(0,0,0,0.12);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    background: var(--white);
+    color: var(--dark);
+    overflow-x: hidden;
+    line-height: 1.6;
+  }
+
+  /* ═══════════ NAV ═══════════ */
+  .top-bar {
+    background: var(--green-dark);
+    padding: 6px 5%;
+    display: flex; justify-content: space-between; align-items: center;
+    font-size: 0.75rem; color: rgba(255,255,255,0.7);
+  }
+  .top-bar a { color: var(--gold); text-decoration: none; font-weight: 600; }
+  .top-bar a:hover { text-decoration: underline; }
+
+  nav {
+    position: sticky; top: 0; z-index: 100;
+    background: var(--white);
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 5%; height: 72px;
+    box-shadow: 0 2px 16px rgba(0,0,0,0.06);
+    transition: height .3s, box-shadow .3s;
+  }
+  nav.scrolled { height: 60px; box-shadow: 0 2px 24px rgba(0,0,0,0.1); }
+
+  .nav-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+  .nav-logo-icon {
+    width: 42px; height: 42px;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+  .nav-logo-icon img, .nav-logo-icon svg { width: 48px; height: 48px; object-fit: contain; }
+  .nav-logo-text {
+    font-family: 'Playfair Display', serif; font-size: 1.15rem;
+    color: var(--green-dark); font-weight: 700; line-height: 1.1;
+  }
+  .nav-logo-text span {
+    display: block; font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 0.62rem; font-weight: 400; color: var(--grey);
+    letter-spacing: 1.5px; text-transform: uppercase;
+  }
+
+  .nav-links {
+    display: flex; align-items: center; gap: 32px; list-style: none;
+  }
+  .nav-links a {
+    color: var(--dark); text-decoration: none;
+    font-size: 0.88rem; font-weight: 500; transition: color .2s;
+    position: relative;
+  }
+  .nav-links a::after {
+    content: ''; position: absolute; bottom: -4px; left: 0;
+    width: 0; height: 2px; background: var(--green);
+    transition: width .3s;
+  }
+  .nav-links a:hover { color: var(--green); }
+  .nav-links a:hover::after { width: 100%; }
+
+  .nav-cta {
+    background: var(--green) !important; color: var(--white) !important;
+    padding: 10px 24px !important; border-radius: 50px !important;
+    font-weight: 700 !important; font-size: 0.85rem !important;
+    transition: all .2s !important; border: none; cursor: pointer;
+  }
+  .nav-cta:hover {
+    background: var(--green-dark) !important;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 16px rgba(26,122,60,0.3);
+  }
+  .nav-cta::after { display: none !important; }
+
+  /* Hamburger */
+  .hamburger {
+    display: none; flex-direction: column; gap: 5px;
+    background: none; border: none; cursor: pointer; padding: 8px;
+    z-index: 200;
+  }
+  .hamburger span {
+    width: 24px; height: 2.5px; background: var(--dark);
+    border-radius: 2px; transition: all .3s;
+  }
+  .hamburger.active span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
+  .hamburger.active span:nth-child(2) { opacity: 0; }
+  .hamburger.active span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
+
+  /* Mobile menu */
+  .mobile-menu {
+    display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+    background: var(--white); z-index: 150;
+    flex-direction: column; align-items: center; justify-content: center;
+    gap: 28px; opacity: 0; transition: opacity .3s;
+  }
+  .mobile-menu.open { display: flex; opacity: 1; }
+  .mobile-menu a {
+    font-size: 1.3rem; color: var(--dark); text-decoration: none;
+    font-weight: 600; transition: color .2s;
+  }
+  .mobile-menu a:hover { color: var(--green); }
+  .mobile-menu .nav-cta {
+    margin-top: 12px; display: inline-block;
+    padding: 14px 36px !important; font-size: 1rem !important;
+  }
+
+  /* ═══════════ HERO ═══════════ */
+  .hero {
+    min-height: 92vh; position: relative; overflow: hidden;
+    background: linear-gradient(160deg, var(--green-dark) 0%, var(--green) 40%, var(--green-mid) 100%);
+    display: flex; align-items: center;
+  }
+  .hero-bg {
+    position: absolute; inset: 0;
+    background:
+      radial-gradient(ellipse at 20% 50%, rgba(255,255,255,0.06) 0%, transparent 60%),
+      radial-gradient(ellipse at 80% 20%, rgba(201,160,0,0.1) 0%, transparent 50%),
+      radial-gradient(circle, rgba(255,255,255,0.04) 1px, transparent 1px);
+    background-size: 100% 100%, 100% 100%, 32px 32px;
+  }
+  .hero-content {
+    position: relative; z-index: 2; width: 100%;
+    max-width: 1200px; margin: 0 auto; padding: 80px 5% 60px;
+    display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center;
+  }
+  .hero-left { animation: slideRight .8s ease forwards; }
+  @keyframes slideRight { from { opacity: 0; transform: translateX(-40px); } to { opacity: 1; transform: translateX(0); } }
+
+  .hero-badge {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.2);
+    border-radius: 25px; padding: 6px 16px;
+    font-size: 0.78rem; color: rgba(255,255,255,0.9);
+    margin-bottom: 24px;
+  }
+  .hero-badge-dot {
+    width: 7px; height: 7px; background: var(--gold);
+    border-radius: 50%; animation: pulse 2s infinite;
+  }
+  @keyframes pulse { 0%,100% { opacity:1; transform:scale(1); } 50% { opacity:.5; transform:scale(1.5); } }
+
+  .hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.4rem, 5vw, 3.8rem);
+    font-weight: 900; color: var(--white);
+    line-height: 1.1; margin-bottom: 16px;
+  }
+  .hero h1 em { font-style: normal; color: var(--gold); }
+  .hero-sub {
+    font-size: clamp(0.95rem, 2vw, 1.15rem);
+    color: rgba(255,255,255,0.75); font-weight: 300;
+    margin-bottom: 32px; max-width: 460px;
+  }
+
+  /* Booking box in hero */
+  .hero-booking {
+    background: var(--white); border-radius: 20px;
+    padding: 28px; box-shadow: var(--shadow-lg);
+    animation: slideLeft .8s ease .2s both;
+  }
+  @keyframes slideLeft { from { opacity: 0; transform: translateX(40px); } to { opacity: 1; transform: translateX(0); } }
+
+  .hero-booking h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.3rem; color: var(--green-dark); margin-bottom: 4px;
+  }
+  .hero-booking .subtitle {
+    font-size: 0.82rem; color: var(--grey); margin-bottom: 20px;
+  }
+  .form-group { margin-bottom: 14px; }
+  .form-group label {
+    display: block; font-size: 0.78rem; font-weight: 600;
+    color: var(--dark); margin-bottom: 5px;
+  }
+  .form-group select, .form-group input {
+    width: 100%; padding: 12px 14px; border: 1.5px solid #E0E8E2;
+    border-radius: 12px; font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 0.9rem; color: var(--dark); background: var(--off-white);
+    transition: border-color .2s; outline: none;
+    -webkit-appearance: none; appearance: none;
+  }
+  .form-group select { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%236B7A6F' d='M6 8L1 3h10z'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 14px center; padding-right: 36px; }
+  .form-group select:focus, .form-group input:focus { border-color: var(--green); }
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .btn-book {
+    width: 100%; padding: 14px; background: var(--green);
+    color: white; border: none; border-radius: 12px;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 0.95rem; font-weight: 700; cursor: pointer;
+    transition: all .2s; margin-top: 4px;
+  }
+  .btn-book:hover { background: var(--green-dark); transform: translateY(-1px); box-shadow: 0 6px 20px rgba(26,122,60,0.3); }
+
+  /* Hero stats bar */
+  .hero-stats-bar {
+    position: relative; z-index: 2; max-width: 1200px;
+    margin: -40px auto 0; padding: 0 5%;
+  }
+  .hero-stats-inner {
+    background: var(--white); border-radius: 20px;
+    padding: 28px 40px; display: flex; justify-content: space-around;
+    align-items: center; box-shadow: var(--shadow-lg);
+    flex-wrap: wrap; gap: 20px;
+  }
+  .h-stat { text-align: center; }
+  .h-stat-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 2rem; font-weight: 900; color: var(--green);
+    display: block; line-height: 1;
+  }
+  .h-stat-label { font-size: 0.78rem; color: var(--grey); margin-top: 4px; }
+  .h-stat-divider { width: 1px; height: 48px; background: #E0E8E2; }
+
+  /* ═══════════ SERVICES ═══════════ */
+  .services { padding: 100px 5%; background: var(--white); }
+  .section-header { text-align: center; max-width: 600px; margin: 0 auto 56px; }
+  .section-label {
+    display: inline-flex; align-items: center; gap: 8px;
+    font-size: 0.72rem; font-weight: 700; letter-spacing: 2px;
+    text-transform: uppercase; color: var(--green);
+    margin-bottom: 12px;
+  }
+  .section-label::before, .section-label::after {
+    content: ''; width: 24px; height: 1.5px; background: var(--green); opacity: .4;
+  }
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2rem, 4vw, 2.8rem);
+    color: var(--dark); line-height: 1.15; margin-bottom: 12px;
+  }
+  .section-subtitle {
+    font-size: 0.95rem; color: var(--grey); line-height: 1.7;
+  }
+
+  .services-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 24px; max-width: 1200px; margin: 0 auto;
+  }
+  .service-card {
+    background: var(--white); border: 1.5px solid #E8EFE9;
+    border-radius: 20px; padding: 32px 28px; position: relative;
+    overflow: hidden; cursor: pointer;
+    transition: all .35s cubic-bezier(.4,0,.2,1);
+  }
+  .service-card:hover {
+    transform: translateY(-8px); border-color: var(--green);
+    box-shadow: 0 20px 50px rgba(26,122,60,0.12);
+  }
+  .service-icon {
+    width: 64px; height: 64px; border-radius: 16px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 2rem; margin-bottom: 20px;
+    background: var(--green-lite);
+  }
+  .service-card.featured .service-icon { background: rgba(255,255,255,0.15); }
+  .service-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.2rem; font-weight: 700; color: var(--dark);
+    margin-bottom: 8px;
+  }
+  .service-desc { font-size: 0.88rem; color: var(--grey); line-height: 1.65; margin-bottom: 16px; }
+  .service-price {
+    display: inline-flex; align-items: center; gap: 6px;
+    background: var(--green-lite); color: var(--green-dark);
+    font-size: 0.82rem; font-weight: 700;
+    padding: 6px 14px; border-radius: 20px;
+  }
+  .service-card.featured {
+    background: linear-gradient(135deg, var(--green-dark), var(--green));
+    border-color: transparent;
+  }
+  .service-card.featured .service-name,
+  .service-card.featured .service-desc { color: rgba(255,255,255,0.92); }
+  .service-card.featured .service-price {
+    background: rgba(255,255,255,0.15); color: var(--white);
+  }
+  .service-link {
+    display: inline-flex; align-items: center; gap: 6px;
+    font-size: 0.84rem; font-weight: 600; color: var(--green);
+    text-decoration: none; margin-top: 8px; transition: gap .2s;
+  }
+  .service-link:hover { gap: 10px; }
+  .service-card.featured .service-link { color: var(--gold); }
+
+  .service-img {
+    width: 100%; height: 180px; object-fit: cover;
+    border-radius: 12px; margin-bottom: 16px;
+  }
+
+  /* Hero image side */
+  .hero-image-side {
+    position: relative; border-radius: 20px; overflow: hidden;
+    box-shadow: var(--shadow-lg);
+  }
+  .hero-image-side img {
+    width: 100%; height: 100%; object-fit: cover; min-height: 400px;
+    border-radius: 20px;
+  }
+  .hero-image-overlay {
+    position: absolute; bottom: 0; left: 0; right: 0;
+    background: linear-gradient(transparent, rgba(0,0,0,0.5));
+    padding: 20px; border-radius: 0 0 20px 20px;
+    color: white; font-size: 0.85rem;
+  }
+
+  /* ═══════════ EVENTS ═══════════ */
+  .events { padding: 100px 5%; background: var(--off-white); }
+  .events-content {
+    max-width: 1200px; margin: 0 auto;
+    display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center;
+  }
+  .events-visual {
+    position: relative; border-radius: 24px; overflow: hidden;
+    background: linear-gradient(135deg, var(--green), var(--green-mid));
+    padding: 48px; min-height: 400px;
+    display: flex; flex-direction: column; justify-content: center;
+  }
+  .events-visual-bg {
+    position: absolute; inset: 0;
+    background: radial-gradient(circle, rgba(255,255,255,0.04) 1px, transparent 1px);
+    background-size: 24px 24px;
+  }
+  .events-visual-content { position: relative; z-index: 1; color: white; }
+  .events-visual h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 2rem; margin-bottom: 12px;
+  }
+  .events-visual p { font-size: 0.95rem; opacity: .85; line-height: 1.7; }
+  .event-types {
+    display: flex; flex-direction: column; gap: 8px; margin-top: 24px;
+  }
+  .event-type-badge {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: rgba(255,255,255,0.15); border-radius: 10px;
+    padding: 10px 16px; font-size: 0.85rem; font-weight: 500;
+    backdrop-filter: blur(4px);
+  }
+
+  .events-info { }
+  .events-info h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.8rem, 3.5vw, 2.4rem);
+    color: var(--dark); margin-bottom: 16px; line-height: 1.15;
+  }
+  .events-info > p { font-size: 0.95rem; color: var(--grey); margin-bottom: 32px; line-height: 1.7; }
+  .event-phases { display: flex; flex-direction: column; gap: 16px; }
+  .event-phase {
+    display: flex; gap: 16px; padding: 20px;
+    background: var(--white); border-radius: 16px;
+    border: 1.5px solid #E8EFE9; transition: all .3s;
+  }
+  .event-phase:hover { border-color: var(--green); box-shadow: var(--shadow); }
+  .phase-icon {
+    width: 48px; height: 48px; border-radius: 12px;
+    background: var(--green-lite); display: flex;
+    align-items: center; justify-content: center;
+    font-size: 1.4rem; flex-shrink: 0;
+  }
+  .phase-text h4 { font-weight: 700; font-size: 0.95rem; color: var(--dark); margin-bottom: 4px; }
+  .phase-text p { font-size: 0.84rem; color: var(--grey); line-height: 1.5; }
+
+  /* ═══════════ PACKAGES ═══════════ */
+  .packages { padding: 100px 5%; background: var(--white); }
+  .packages-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 20px; max-width: 1200px; margin: 0 auto;
+  }
+  .package-card {
+    border-radius: 20px; overflow: hidden;
+    transition: transform .35s, box-shadow .35s;
+    border: 1.5px solid #E8EFE9; background: var(--white);
+  }
+  .package-card:hover { transform: translateY(-8px); box-shadow: var(--shadow-lg); }
+  .package-card.popular {
+    transform: scale(1.03); border-color: var(--green);
+    box-shadow: 0 16px 50px rgba(26,122,60,0.2);
+  }
+  .package-card.popular:hover { transform: scale(1.03) translateY(-8px); }
+  .popular-badge {
+    position: absolute; top: 16px; right: 16px;
+    background: var(--gold); color: var(--dark);
+    font-size: 0.68rem; font-weight: 800;
+    padding: 4px 12px; border-radius: 20px;
+    text-transform: uppercase; letter-spacing: .5px;
+  }
+  .package-header { padding: 28px 24px 20px; position: relative; }
+  .package-badge { font-size: 2rem; margin-bottom: 10px; display: block; }
+  .package-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.35rem; font-weight: 700; margin-bottom: 4px;
+  }
+  .package-tagline { font-size: 0.8rem; opacity: .75; margin-bottom: 14px; line-height: 1.4; }
+  .package-price {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.9rem; font-weight: 700; line-height: 1;
+  }
+  .package-price span {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 0.78rem; font-weight: 400; opacity: .7;
+  }
+  .package-body { padding: 20px 24px 28px; }
+  .package-includes {
+    list-style: none; display: flex; flex-direction: column;
+    gap: 10px; margin-bottom: 24px;
+  }
+  .package-includes li {
+    display: flex; align-items: flex-start; gap: 10px;
+    font-size: 0.85rem; color: var(--dark); line-height: 1.4;
+  }
+  .check { color: var(--green); font-size: .9rem; flex-shrink: 0; margin-top: 1px; }
+  .check.gold { color: var(--gold); }
+  .package-btn {
+    width: 100%; padding: 13px; border-radius: 12px;
+    border: 2px solid var(--green); background: transparent;
+    color: var(--green); font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: .88rem; font-weight: 700; cursor: pointer;
+    transition: all .2s; text-decoration: none;
+    display: block; text-align: center;
+  }
+  .package-btn:hover, .package-btn.primary {
+    background: var(--green); color: var(--white);
+  }
+  .package-btn.primary:hover { background: var(--green-dark); border-color: var(--green-dark); }
+
+  .pkg-bronze .package-header { background: linear-gradient(135deg, #7A5230, #B87B4A); color: white; }
+  .pkg-silver .package-header { background: linear-gradient(135deg, #4A5868, #7A8B9D); color: white; }
+  .pkg-gold .package-header   { background: linear-gradient(135deg, #8B6508, #C9A000); color: white; }
+  .pkg-diamond .package-header { background: linear-gradient(135deg, #1255A0, #1878D5); color: white; }
+
+  /* ═══════════ FREE BANNER ═══════════ */
+  .free-banner {
+    max-width: 1200px; margin: -40px auto 0; position: relative; z-index: 3;
+    padding: 0 5%;
+  }
+  .free-banner-inner {
+    background: linear-gradient(135deg, var(--gold) 0%, var(--gold-bright) 100%);
+    border-radius: 24px; padding: 40px;
+    display: grid; grid-template-columns: 1fr 1fr; gap: 32px; align-items: center;
+  }
+  .free-banner-text h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.6rem; color: var(--dark); margin-bottom: 8px;
+  }
+  .free-banner-text p { font-size: .9rem; color: rgba(0,0,0,.6); line-height: 1.6; }
+  .free-services { display: flex; flex-direction: column; gap: 12px; }
+  .free-service {
+    background: rgba(255,255,255,0.45); border-radius: 14px;
+    padding: 14px 18px; display: flex; align-items: center; gap: 14px;
+    backdrop-filter: blur(4px);
+  }
+  .free-service-icon { font-size: 1.6rem; }
+  .free-service-name { font-weight: 700; font-size: .88rem; color: var(--dark); }
+  .free-service-desc { font-size: .76rem; color: rgba(0,0,0,.55); line-height: 1.3; margin-top: 2px; }
+  .free-tag {
+    margin-left: auto; background: var(--dark); color: var(--white);
+    font-size: .7rem; font-weight: 800; padding: 4px 12px;
+    border-radius: 20px; flex-shrink: 0; text-transform: uppercase;
+  }
+
+  /* ═══════════ MISSION / VALUES ═══════════ */
+  .mission { padding: 100px 5%; background: var(--off-white); }
+  .mission-content {
+    max-width: 1200px; margin: 0 auto;
+    display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center;
+  }
+  .mission-text h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.8rem, 3.5vw, 2.4rem);
+    color: var(--dark); margin-bottom: 16px; line-height: 1.15;
+  }
+  .mission-text > p { font-size: .95rem; color: var(--grey); margin-bottom: 28px; line-height: 1.7; }
+  .values-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .value-card {
+    padding: 20px; background: var(--white); border-radius: 16px;
+    border: 1.5px solid #E8EFE9; transition: all .3s;
+  }
+  .value-card:hover { border-color: var(--green); box-shadow: var(--shadow); }
+  .value-icon { font-size: 1.4rem; margin-bottom: 8px; display: block; }
+  .value-name { font-weight: 700; font-size: .88rem; color: var(--dark); margin-bottom: 4px; }
+  .value-desc { font-size: .78rem; color: var(--grey); line-height: 1.5; }
+
+  .mission-visual {
+    position: relative; border-radius: 24px; overflow: hidden;
+    background: linear-gradient(160deg, var(--green-dark), var(--green));
+    padding: 48px; display: flex; flex-direction: column; justify-content: center;
+    min-height: 480px;
+  }
+  .mission-visual-bg {
+    position: absolute; inset: 0;
+    background: radial-gradient(circle, rgba(255,255,255,.04) 1px, transparent 1px);
+    background-size: 28px 28px;
+  }
+  .mission-visual-content {
+    position: relative; z-index: 1; color: white;
+  }
+  .mission-visual h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.6rem; margin-bottom: 16px;
+  }
+  .mission-visual p { font-size: .92rem; opacity: .85; line-height: 1.7; margin-bottom: 12px; }
+  .vision-badge {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: rgba(255,255,255,.12); border: 1px solid rgba(255,255,255,.2);
+    border-radius: 12px; padding: 14px 20px;
+    font-size: .85rem; margin-top: 12px;
+  }
+
+  /* ═══════════ TESTIMONIALS ═══════════ */
+  .testimonials { padding: 100px 5%; background: var(--white); }
+  .testimonials-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 24px; max-width: 1200px; margin: 0 auto;
+  }
+  .testimonial-card {
+    background: var(--off-white); border-radius: 20px;
+    padding: 32px; border: 1.5px solid #E8EFE9;
+    transition: all .3s;
+  }
+  .testimonial-card:hover { border-color: var(--green); box-shadow: var(--shadow); }
+  .testimonial-stars { font-size: 1rem; margin-bottom: 16px; color: var(--gold); letter-spacing: 2px; }
+  .testimonial-text {
+    font-size: .92rem; color: var(--dark); line-height: 1.7;
+    margin-bottom: 20px; font-style: italic;
+  }
+  .testimonial-author { display: flex; align-items: center; gap: 12px; }
+  .testimonial-avatar {
+    width: 44px; height: 44px; border-radius: 50%;
+    background: var(--green-lite); display: flex;
+    align-items: center; justify-content: center;
+    font-size: 1.1rem; font-weight: 700; color: var(--green);
+  }
+  .testimonial-name { font-weight: 700; font-size: .88rem; color: var(--dark); }
+  .testimonial-location { font-size: .76rem; color: var(--grey); }
+
+  /* ═══════════ HOW IT WORKS ═══════════ */
+  .how { padding: 100px 5%; background: var(--off-white); }
+  .how-grid {
+    display: grid; grid-template-columns: repeat(5, 1fr);
+    gap: 20px; max-width: 1200px; margin: 56px auto 0;
+    position: relative;
+  }
+  .how-grid::before {
+    content: ''; position: absolute;
+    top: 40px; left: 12%; right: 12%; height: 2px;
+    background: linear-gradient(90deg, var(--green), var(--gold), var(--green));
+    opacity: .2;
+  }
+  .how-step { text-align: center; position: relative; }
+  .how-num {
+    width: 72px; height: 72px;
+    background: linear-gradient(135deg, var(--green), var(--green-mid));
+    border-radius: 50%; display: flex; align-items: center; justify-content: center;
+    margin: 0 auto 18px;
+    font-family: 'Playfair Display', serif;
+    font-size: 1.5rem; font-weight: 700; color: white;
+    box-shadow: 0 8px 24px rgba(26,122,60,.25);
+    position: relative; z-index: 1;
+  }
+  .how-step h4 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1rem; margin-bottom: 6px; color: var(--dark);
+  }
+  .how-step p { font-size: .82rem; color: var(--grey); line-height: 1.55; }
+
+  /* ═══════════ LAUNCH OFFER ═══════════ */
+  .launch { padding: 80px 5%; background: var(--white); }
+  .launch-inner {
+    max-width: 900px; margin: 0 auto;
+    background: linear-gradient(135deg, #FFF5F5, #FFF0F0);
+    border: 2px solid #FFCDD2; border-radius: 28px;
+    padding: 52px; text-align: center; position: relative; overflow: hidden;
+  }
+  .launch-tag {
+    display: inline-block; background: var(--red); color: white;
+    font-size: .78rem; font-weight: 700; padding: 6px 18px;
+    border-radius: 20px; letter-spacing: 1px; text-transform: uppercase;
+    margin-bottom: 20px;
+  }
+  .launch h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.6rem, 3.5vw, 2.4rem);
+    color: var(--red); margin-bottom: 10px;
+  }
+  .launch-sub { font-size: .95rem; color: var(--grey); margin-bottom: 36px; line-height: 1.6; }
+  .launch-prices {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 14px; margin-bottom: 32px;
+  }
+  .launch-price-card {
+    background: white; border: 1.5px solid #FFCDD2;
+    border-radius: 16px; padding: 16px 12px; text-align: center;
+    transition: all .3s;
+  }
+  .launch-price-card:hover { border-color: var(--red); box-shadow: 0 4px 16px rgba(198,40,40,.1); }
+  .launch-service-name { font-size: .78rem; font-weight: 700; color: var(--dark); margin-bottom: 6px; line-height: 1.3; }
+  .launch-old { font-size: .76rem; color: #AAA; text-decoration: line-through; margin-bottom: 3px; }
+  .launch-new {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.3rem; font-weight: 700; color: var(--red);
+  }
+  .launch-cta {
+    background: var(--red); color: white; border: none;
+    padding: 16px 40px; border-radius: 50px;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 1rem; font-weight: 700; cursor: pointer;
+    transition: all .2s; text-decoration: none; display: inline-block;
+  }
+  .launch-cta:hover {
+    background: #B71C1C; transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(198,40,40,.35);
+  }
+
+  /* ═══════════ INLINE BOOKING FORM ═══════════ */
+  .booking-section { padding: 100px 5%; background: var(--green-lite); }
+  .booking-container {
+    max-width: 900px; margin: 0 auto;
+    display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: start;
+  }
+  .booking-info h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.8rem, 3.5vw, 2.4rem);
+    color: var(--dark); margin-bottom: 12px; line-height: 1.15;
+  }
+  .booking-info > p { font-size: .92rem; color: var(--grey); margin-bottom: 28px; line-height: 1.7; }
+  .booking-benefits { display: flex; flex-direction: column; gap: 14px; }
+  .booking-benefit {
+    display: flex; align-items: center; gap: 12px;
+    font-size: .88rem; color: var(--dark);
+  }
+  .benefit-icon {
+    width: 40px; height: 40px; border-radius: 10px;
+    background: var(--white); display: flex; align-items: center;
+    justify-content: center; font-size: 1.1rem; flex-shrink: 0;
+    box-shadow: 0 2px 8px rgba(0,0,0,.06);
+  }
+  .booking-form-card {
+    background: var(--white); border-radius: 20px;
+    padding: 32px; box-shadow: var(--shadow);
+  }
+  .booking-form-card h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.2rem; color: var(--green-dark); margin-bottom: 20px;
+  }
+
+  /* ═══════════ CTA ═══════════ */
+  .cta-section { padding: 100px 5%; background: var(--white); }
+  .cta-inner {
+    max-width: 900px; margin: 0 auto; text-align: center;
+    background: linear-gradient(135deg, var(--green-dark), var(--green));
+    border-radius: 32px; padding: 72px 52px;
+    position: relative; overflow: hidden;
+  }
+  .cta-inner::after {
+    content: ''; position: absolute; inset: 0;
+    background: radial-gradient(circle, rgba(255,255,255,.04) 1px, transparent 1px);
+    background-size: 30px 30px;
+  }
+  .cta-inner * { position: relative; z-index: 1; }
+  .cta-inner h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.6rem, 3.5vw, 2.4rem);
+    color: var(--white); margin-bottom: 14px;
+  }
+  .cta-inner p { font-size: .95rem; color: rgba(255,255,255,.7); margin-bottom: 36px; line-height: 1.6; }
+  .cta-buttons { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+  .btn-primary {
+    background: var(--gold); color: var(--dark);
+    padding: 15px 36px; border-radius: 50px;
+    font-weight: 700; font-size: .95rem;
+    text-decoration: none; transition: all .2s;
+    display: inline-flex; align-items: center; gap: 8px;
+  }
+  .btn-primary:hover {
+    background: var(--gold-bright); transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(201,160,0,.4);
+  }
+  .btn-secondary {
+    background: rgba(255,255,255,.1); color: var(--white);
+    padding: 15px 36px; border-radius: 50px;
+    font-weight: 600; font-size: .95rem; text-decoration: none;
+    border: 1.5px solid rgba(255,255,255,.3); transition: all .2s;
+  }
+  .btn-secondary:hover { background: rgba(255,255,255,.2); }
+
+  /* ═══════════ FOOTER ═══════════ */
+  footer { background: var(--dark); color: rgba(255,255,255,.7); padding: 64px 5% 32px; }
+  .footer-content { max-width: 1200px; margin: 0 auto; }
+  .footer-grid {
+    display: grid; grid-template-columns: 2fr 1fr 1fr 1fr;
+    gap: 48px; margin-bottom: 48px;
+  }
+  .footer-brand .brand-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.4rem; color: var(--white); margin-bottom: 6px;
+  }
+  .footer-brand .brand-slogan {
+    font-size: .8rem; color: var(--gold);
+    margin-bottom: 16px; font-style: italic;
+  }
+  .footer-brand > p { font-size: .84rem; line-height: 1.7; max-width: 300px; }
+  .footer-contacts { margin-top: 20px; display: flex; flex-direction: column; gap: 8px; }
+  .footer-contact { display: flex; align-items: center; gap: 10px; font-size: .84rem; }
+  .footer-col h5 {
+    color: var(--white); font-size: .82rem; font-weight: 700;
+    letter-spacing: 1px; text-transform: uppercase; margin-bottom: 20px;
+  }
+  .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+  .footer-col ul a {
+    color: rgba(255,255,255,.55); text-decoration: none;
+    font-size: .84rem; transition: color .2s;
+  }
+  .footer-col ul a:hover { color: var(--gold); }
+  .footer-bottom {
+    border-top: 1px solid rgba(255,255,255,.08);
+    padding-top: 28px;
+    display: flex; justify-content: space-between; align-items: center;
+    flex-wrap: wrap; gap: 16px;
+  }
+  .footer-bottom p { font-size: .78rem; }
+  .social-links { display: flex; gap: 10px; }
+  .social-link {
+    width: 38px; height: 38px; background: rgba(255,255,255,.08);
+    border-radius: 50%; display: flex; align-items: center; justify-content: center;
+    font-size: .9rem; text-decoration: none; transition: all .2s;
+  }
+  .social-link:hover { background: var(--green); transform: translateY(-2px); }
+
+  /* ═══════════ WHATSAPP FLOAT ═══════════ */
+  .whatsapp-float {
+    position: fixed; bottom: 28px; right: 28px;
+    width: 60px; height: 60px; background: #25D366;
+    border-radius: 50%; display: flex; align-items: center; justify-content: center;
+    font-size: 1.8rem; text-decoration: none;
+    box-shadow: 0 8px 24px rgba(37,211,102,.4);
+    z-index: 99; transition: transform .2s, box-shadow .2s;
+    animation: floatBounce 3s ease-in-out infinite;
+  }
+  .whatsapp-float:hover { transform: scale(1.1); box-shadow: 0 12px 32px rgba(37,211,102,.5); }
+  @keyframes floatBounce { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-6px); } }
+
+  /* ═══════════ SCROLL ANIMATIONS ═══════════ */
+  .fade-up { opacity: 0; transform: translateY(28px); transition: opacity .7s ease, transform .7s ease; }
+  .fade-up.visible { opacity: 1; transform: translateY(0); }
+  .fade-up.d1 { transition-delay: .1s; }
+  .fade-up.d2 { transition-delay: .2s; }
+  .fade-up.d3 { transition-delay: .3s; }
+
+  /* ═══════════ RESPONSIVE ═══════════ */
+  @media (max-width: 1024px) {
+    .hero-content { grid-template-columns: 1fr; gap: 40px; }
+    .hero-booking { max-width: 500px; }
+    .events-content { grid-template-columns: 1fr; }
+    .mission-content { grid-template-columns: 1fr; }
+    .booking-container { grid-template-columns: 1fr; }
+    .how-grid { grid-template-columns: repeat(3, 1fr); }
+    .how-grid::before { display: none; }
+  }
+  @media (max-width: 768px) {
+    .top-bar { display: none; }
+    .nav-links { display: none; }
+    .hamburger { display: flex; }
+    .hero { min-height: auto; padding-bottom: 40px; }
+    .hero-content { padding: 60px 5% 40px; }
+    .hero-stats-inner { padding: 20px; gap: 16px; }
+    .h-stat-divider { display: none; }
+    .free-banner-inner { grid-template-columns: 1fr; }
+    .footer-grid { grid-template-columns: 1fr 1fr; }
+    .how-grid { grid-template-columns: 1fr 1fr; }
+    .launch-inner { padding: 36px 20px; }
+    .cta-inner { padding: 48px 24px; }
+    .packages-grid { grid-template-columns: 1fr; max-width: 400px; margin: 0 auto; }
+    .package-card.popular { transform: none; }
+    .package-card.popular:hover { transform: translateY(-8px); }
+    .services-grid { grid-template-columns: 1fr; }
+    .testimonials-grid { grid-template-columns: 1fr; }
+    .values-grid { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 480px) {
+    .footer-grid { grid-template-columns: 1fr; }
+    .hero-stats-inner { flex-direction: column; }
+    .how-grid { grid-template-columns: 1fr; }
+    .form-row { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- SVG ICON SPRITE -->
+<svg xmlns="http://www.w3.org/2000/svg" style="display:none;">
+  <!-- Home -->
+  <symbol id="ic-home" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></symbol>
+  <!-- Hammer/Construction -->
+  <symbol id="ic-hammer" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 12l-8.5 8.5a2.12 2.12 0 1 1-3-3L12 9"/><path d="M17.64 15L22 10.64"/><path d="M20.91 11.7a1 1 0 0 0-.19-1.13l-5.29-5.29a1 1 0 0 0-1.13-.19l-2.14.87"/><path d="M14.5 5.5L18 2l4 4-3.5 3.5"/></symbol>
+  <!-- Shirt/Laundry -->
+  <symbol id="ic-shirt" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.38 3.46L16 2 12 5 8 2 3.62 3.46a2 2 0 0 0-1.34 2.23l.58 3.47a1 1 0 0 0 .99.84H6v10c0 1.1.9 2 2 2h8a2 2 0 0 0 2-2V10h2.15a1 1 0 0 0 .99-.84l.58-3.47a2 2 0 0 0-1.34-2.23z"/></symbol>
+  <!-- Baby/Heart -->
+  <symbol id="ic-baby" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></symbol>
+  <!-- Building/Corporate -->
+  <symbol id="ic-building" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="2" width="16" height="20" rx="2" ry="2"/><path d="M9 22V12h6v10"/><path d="M8 6h.01M16 6h.01M12 6h.01M8 10h.01M16 10h.01M12 10h.01"/></symbol>
+  <!-- Sofa -->
+  <symbol id="ic-sofa" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 11V8a4 4 0 0 1 4-4h8a4 4 0 0 1 4 4v3"/><path d="M2 11v5a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-5a2 2 0 0 0-4 0H6a2 2 0 0 0-4 0z"/><path d="M4 18v2M20 18v2"/></symbol>
+  <!-- Chef/Cooking -->
+  <symbol id="ic-chef" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 13.87A4 4 0 0 1 7.41 6a5.11 5.11 0 0 1 1.05-1.54 5 5 0 0 1 7.08 0A5.11 5.11 0 0 1 16.59 6 4 4 0 0 1 18 13.87V21H6z"/><line x1="6" y1="17" x2="18" y2="17"/></symbol>
+  <!-- Sparkles/Deep clean -->
+  <symbol id="ic-sparkle" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l2.09 6.26L20 10l-5.91 1.74L12 18l-2.09-6.26L4 10l5.91-1.74L12 2z"/><path d="M19 15l1.04 3.13L23 19l-2.96.87L19 23l-1.04-3.13L15 19l2.96-.87L19 15z"/></symbol>
+  <!-- Calendar/Events -->
+  <symbol id="ic-calendar" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></symbol>
+  <!-- Wedding/Ring -->
+  <symbol id="ic-ring" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="14" r="7"/><path d="M12 7V2"/><path d="M8.5 5L12 2l3.5 3"/></symbol>
+  <!-- Cake/Birthday -->
+  <symbol id="ic-cake" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21H4a2 2 0 0 1-2-2v-4a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v4a2 2 0 0 1-2 2z"/><path d="M2 13s2-2 5-2 5 2 5 2 2-2 5-2 5 2 5 2"/><path d="M12 13V9"/><path d="M12 5a1 1 0 0 1 0 4 1 1 0 0 1 0-4z"/></symbol>
+  <!-- Graduation -->
+  <symbol id="ic-grad" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10l-10-5L2 10l10 5 10-5z"/><path d="M6 12v5c0 2 3 3 6 3s6-1 6-3v-5"/><line x1="22" y1="10" x2="22" y2="16"/></symbol>
+  <!-- Clipboard -->
+  <symbol id="ic-clipboard" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><rect x="8" y="2" width="8" height="4" rx="1" ry="1"/></symbol>
+  <!-- Broom -->
+  <symbol id="ic-broom" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L12 12"/><path d="M5 22C5 16 8 13 12 13s7 3 7 9"/><path d="M8 22h8"/></symbol>
+  <!-- Cart/Shopping -->
+  <symbol id="ic-cart" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></symbol>
+  <!-- Hospital/Medical -->
+  <symbol id="ic-hospital" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M12 8v8M8 12h8"/></symbol>
+  <!-- Handshake/Ethics -->
+  <symbol id="ic-handshake" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.42 4.58a5.4 5.4 0 0 0-7.65 0l-.77.78-.77-.78a5.4 5.4 0 0 0-7.65 7.65l.78.77 7.64 7.42 7.64-7.42.78-.77a5.4 5.4 0 0 0 0-7.65z"/></symbol>
+  <!-- Clock -->
+  <symbol id="ic-clock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></symbol>
+  <!-- Shield/Security -->
+  <symbol id="ic-shield" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10"/></symbol>
+  <!-- Leaf/Sustainability -->
+  <symbol id="ic-leaf" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 8C8 10 5.9 16.17 3.82 21.34l1.89.66.95-2.3c.48.17.98.3 1.34.3C19 20 22 3 22 3c-1 2-8 2.25-13 3.25S2 11.5 2 13.5s1.75 3.75 1.75 3.75"/></symbol>
+  <!-- Lightbulb -->
+  <symbol id="ic-bulb" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18h6"/><path d="M10 22h4"/><path d="M12 2a7 7 0 0 0-4 12.7V17h8v-2.3A7 7 0 0 0 12 2z"/></symbol>
+  <!-- Users/Inclusion -->
+  <symbol id="ic-users" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></symbol>
+  <!-- Target -->
+  <symbol id="ic-target" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></symbol>
+  <!-- Star -->
+  <symbol id="ic-star" viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></symbol>
+  <!-- Check circle -->
+  <symbol id="ic-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></symbol>
+  <!-- Package/Box -->
+  <symbol id="ic-package" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16.5 9.4l-9-5.19"/><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></symbol>
+  <!-- Award/100 -->
+  <symbol id="ic-award" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="7"/><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"/></symbol>
+  <!-- Phone -->
+  <symbol id="ic-phone" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></symbol>
+  <!-- Map pin -->
+  <symbol id="ic-pin" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></symbol>
+  <!-- Facebook -->
+  <symbol id="ic-facebook" viewBox="0 0 24 24" fill="currentColor"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></symbol>
+  <!-- Instagram -->
+  <symbol id="ic-instagram" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></symbol>
+  <!-- TikTok/Music -->
+  <symbol id="ic-tiktok" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></symbol>
+  <!-- WhatsApp -->
+  <symbol id="ic-whatsapp" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z"/></symbol>
+  <!-- Diamond -->
+  <symbol id="ic-diamond" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3h12l4 6-10 13L2 9z"/><path d="M2 9h20"/><path d="M10 3l-4 6 6 13 6-13-4-6"/></symbol>
+  <!-- Medal Bronze -->
+  <symbol id="ic-bronze" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="6"/><path d="M12 2v2M12 14v2"/><path d="M8 18l-2 4h12l-2-4"/><path d="M9.5 7L12 5.5 14.5 7 14 10h-4z"/></symbol>
+  <!-- Medal Silver -->
+  <symbol id="ic-silver" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="6"/><path d="M8 18l-2 4h12l-2-4"/><path d="M15 7l-3 2-3-2 1 3.5h4z"/></symbol>
+  <!-- Medal Gold -->
+  <symbol id="ic-gold" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="6"/><path d="M8 18l-2 4h12l-2-4"/><path d="M12 5l1.5 3 3 .5-2.25 2 .75 3L12 12l-3 1.5.75-3L7.5 8.5l3-.5z"/></symbol>
+</svg>
+
+<style>
+  .icon { display: inline-block; width: 1em; height: 1em; vertical-align: -0.125em; }
+  .icon svg { width: 100%; height: 100%; }
+  .icon-sm { width: 16px; height: 16px; }
+  .icon-md { width: 20px; height: 20px; }
+  .icon-lg { width: 24px; height: 24px; }
+  .icon-xl { width: 32px; height: 32px; }
+  .icon-2xl { width: 40px; height: 40px; }
+  .stars { display: flex; gap: 2px; margin-bottom: 16px; }
+  .stars svg { width: 18px; height: 18px; color: var(--gold); }
+</style>
+
+<!-- TOP BAR -->
+<div class="top-bar">
+  <span>Seg–Sab: 07h00 – 19h00 &nbsp;|&nbsp; Zango 2, Luanda</span>
+  <span>Precisa de ajuda? <a href="https://wa.me/244953612474">Fale connosco no WhatsApp</a></span>
+</div>
+
+<!-- NAV -->
+<nav id="navbar">
+  <a href="#footer" class="nav-logo" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;">
+    <div class="nav-logo-icon">
+      <svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
+        <!-- Círculo verde exterior -->
+        <circle cx="50" cy="58" r="38" fill="none" stroke="#1B7B3A" stroke-width="5"/>
+        <!-- Preenchimento interior verde escuro -->
+        <circle cx="50" cy="58" r="35" fill="#0F5025" opacity="0.15"/>
+        <!-- Folha verde grande (atrás da vassoura) -->
+        <path d="M62 42 C80 50 82 72 68 88 C64 92 56 94 50 90 C44 86 42 78 44 70 C46 60 54 46 62 42 Z" fill="#1B7B3A"/>
+        <path d="M62 44 C58 56 54 68 52 82" fill="none" stroke="#0F5025" stroke-width="1.5" opacity="0.5"/>
+        <!-- Cabo da vassoura (diagonal dourado) -->
+        <line x1="56" y1="14" x2="36" y2="72" stroke="#E8A000" stroke-width="4.5" stroke-linecap="round"/>
+        <!-- Cerdas da vassoura (base dourada em leque) -->
+        <path d="M28 72 Q32 66 36 72 L38 80 Q32 84 26 80 Z" fill="#E8A000"/>
+        <path d="M32 71 Q36 65 40 72 L42 80 Q36 84 30 80 Z" fill="#D4900A"/>
+        <path d="M36 72 Q40 66 44 72 L44 80 Q40 84 36 80 Z" fill="#E8A000"/>
+        <path d="M24 74 Q28 68 32 74 L32 82 Q28 86 22 82 Z" fill="#D4900A" opacity="0.8"/>
+        <!-- Estrela/brilho grande (4 pontas) -->
+        <path d="M72 24 L74 18 L76 24 L82 26 L76 28 L74 34 L72 28 L66 26 Z" fill="#E8A000"/>
+        <!-- Estrela/brilho médio -->
+        <path d="M84 38 L85.5 34 L87 38 L91 39.5 L87 41 L85.5 45 L84 41 L80 39.5 Z" fill="#E8A000" opacity="0.85"/>
+        <!-- Estrela/brilho pequeno -->
+        <path d="M68 12 L69 9 L70 12 L73 13 L70 14 L69 17 L68 14 L65 13 Z" fill="#E8A000" opacity="0.6"/>
+      </svg>
+    </div>
+    <div class="nav-logo-text">
+      <span style="font-family:'Playfair Display',serif; font-size:1.15rem; color:var(--green-dark); display:inline;">Midas</span> <span style="font-family:'Playfair Display',serif; font-size:1.15rem; color:var(--gold); display:inline;">PuroBrilho</span>
+      <span>Nós Limpamos, Você Relaxa</span>
+    </div>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#servicos">Serviços</a></li>
+    <li><a href="#eventos">Eventos</a></li>
+    <li><a href="#pacotes">Pacotes</a></li>
+    <li><a href="#testemunhos">Testemunhos</a></li>
+    <li><a href="#como-funciona">Como Funciona</a></li>
+    <li><a href="#agendar">Agendar</a></li>
+    <li><a href="https://wa.me/244953612474" class="nav-cta">Contrate Já!</a></li>
+  </ul>
+  <button type="button" class="hamburger" id="hamburger" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- MOBILE MENU -->
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#servicos" onclick="closeMenu()">Serviços</a>
+  <a href="#eventos" onclick="closeMenu()">Eventos</a>
+  <a href="#pacotes" onclick="closeMenu()">Pacotes</a>
+  <a href="#testemunhos" onclick="closeMenu()">Testemunhos</a>
+  <a href="#como-funciona" onclick="closeMenu()">Como Funciona</a>
+  <a href="#agendar" onclick="closeMenu()">Agendar</a>
+  <a href="https://wa.me/244953612474" class="nav-cta" onclick="closeMenu()">Contrate Já!</a>
+</div>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-content">
+    <div class="hero-left">
+      <div class="hero-badge">
+        <span class="hero-badge-dot"></span>
+        Grupo Midas Angola — Zango 2, Luanda
+      </div>
+      <h1>Nós <em>Limpamos</em>,<br>Você Relaxa.</h1>
+      <p class="hero-sub">Limpeza profissional, lavandaria, cuidado pessoal e serviços para eventos — com a confiança e qualidade que só a marca Midas garante.</p>
+      <div style="display:flex; gap:12px; flex-wrap:wrap;">
+        <a href="#agendar" class="btn-primary" style="font-size:.9rem; padding:14px 28px;">Agendar Serviço</a>
+        <a href="#servicos" class="btn-secondary" style="border-color:rgba(255,255,255,.4); font-size:.9rem; padding:14px 28px;">Ver Serviços</a>
+      </div>
+    </div>
+    <div class="hero-booking" style="background:var(--white); position:relative;">
+      <div style="text-align:center; margin-bottom:12px;">
+        <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" width="48" height="48">
+          <circle cx="45" cy="50" r="35" fill="none" stroke="#1B7B3A" stroke-width="5"/>
+          <path d="M65 75 C65 75 75 55 70 40 C68 34 60 35 58 40 L50 65 Z" fill="#1B7B3A"/>
+          <line x1="50" y1="20" x2="38" y2="65" stroke="#E8A000" stroke-width="4.5" stroke-linecap="round"/>
+          <path d="M30 65 L46 65 L38 78 Z" fill="#E8A000"/>
+          <path d="M62 22 L66 18 L70 22 L66 26 Z" fill="#E8A000"/>
+          <path d="M72 30 L75 27 L78 30 L75 33 Z" fill="#E8A000" opacity="0.7"/>
+        </svg>
+      </div>
+      <h3>Agende em 30 segundos</h3>
+      <p class="subtitle">Preencha e respondemos em menos de 1 hora.</p>
+      <form id="heroForm" onsubmit="submitBooking(event)">
+        <div class="form-group">
+          <label>Que serviço precisa?</label>
+          <select id="heroService" required>
+            <option value="">Selecione o serviço</option>
+            <option>Limpeza Doméstica</option>
+            <option>Limpeza Pós-Obra</option>
+            <option>Lavandaria + Entrega</option>
+            <option>Babysitting Qualificado</option>
+            <option>Limpeza Empresarial</option>
+            <option>Estofos e Sofás</option>
+            <option>Limpeza de Eventos</option>
+            <option>Cozinheira ao Domicílio</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Seu nome</label>
+          <input type="text" id="heroName" placeholder="Ex: Ana Silva" required>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Telefone / WhatsApp</label>
+            <input type="tel" id="heroPhone" placeholder="9XX XXX XXX" required>
+          </div>
+          <div class="form-group">
+            <label>Sua zona</label>
+            <input type="text" id="heroZone" placeholder="Ex: Zango 2">
+          </div>
+        </div>
+        <button type="submit" class="btn-book">Agendar Agora pelo WhatsApp</button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- HERO STATS BAR -->
+<div class="hero-stats-bar fade-up">
+  <div class="hero-stats-inner">
+    <div class="h-stat">
+      <span class="h-stat-num">10+</span>
+      <span class="h-stat-label">Serviços profissionais</span>
+    </div>
+    <div class="h-stat-divider"></div>
+    <div class="h-stat">
+      <span class="h-stat-num">4</span>
+      <span class="h-stat-label">Pacotes mensais</span>
+    </div>
+    <div class="h-stat-divider"></div>
+    <div class="h-stat">
+      <span class="h-stat-num">100%</span>
+      <span class="h-stat-label">Satisfação garantida</span>
+    </div>
+    <div class="h-stat-divider"></div>
+    <div class="h-stat">
+      <span class="h-stat-num">&lt;1h</span>
+      <span class="h-stat-label">Resposta no WhatsApp</span>
+    </div>
+  </div>
+</div>
+
+<!-- SERVICES -->
+<section class="services" id="servicos">
+  <div class="section-header fade-up">
+    <span class="section-label">O que fazemos</span>
+    <h2 class="section-title">Serviços profissionais<br>para cada necessidade</h2>
+    <p class="section-subtitle">Da limpeza doméstica ao cuidado empresarial, passando por eventos e cuidado pessoal — temos a solução certa.</p>
+  </div>
+  <div class="services-grid">
+    <div class="service-card featured fade-up">
+      <img class="service-img" src="limpeza-domestica.jpg" alt="Limpeza Doméstica" loading="lazy">
+      <div class="service-name">Limpeza Doméstica</div>
+      <div class="service-desc">Salas, quartos, cozinha e casas de banho — limpeza completa com produtos incluídos e equipa fardada.</div>
+      <div class="service-price">A partir de 15.000 Kz</div>
+      <a href="https://wa.me/244953612474?text=Olá! Quero agendar uma Limpeza Doméstica." class="service-link">Agendar agora →</a>
+    </div>
+    <div class="service-card fade-up d1">
+      <img class="service-img" src="limpeza-pos-obra.jpg" alt="Limpeza Pós-Obra" loading="lazy">
+      <div class="service-name">Limpeza Pós-Obra</div>
+      <div class="service-desc">Espaço pronto para habitar após obras. Remoção de pó de cimento, tinta e resíduos de construção.</div>
+      <div class="service-price">A partir de 80.000 Kz</div>
+      <a href="https://wa.me/244953612474?text=Olá! Quero agendar Limpeza Pós-Obra." class="service-link">Agendar agora →</a>
+    </div>
+    <div class="service-card fade-up d2">
+      <img class="service-img" src="lavandaria.jpg" alt="Lavandaria" loading="lazy">
+      <div class="service-name">Lavandaria + Entrega</div>
+      <div class="service-desc">Recolha, lavagem, engomadoria e entrega em 24-48h. Sem sair de casa — roupas impecáveis com toque Midas.</div>
+      <div class="service-price">A partir de 1.900 Kz/kg</div>
+      <a href="https://wa.me/244953612474?text=Olá! Quero usar o serviço de Lavandaria." class="service-link">Agendar agora →</a>
+    </div>
+    <div class="service-card fade-up">
+      <img class="service-img" src="babysitting.jpg" alt="Babysitting" loading="lazy">
+      <div class="service-name">Babysitting Qualificado</div>
+      <div class="service-desc">Cuidadoras com formação em saúde. Ligação directa ao Centro Médico Midas para emergências.</div>
+      <div class="service-price">A partir de 5.900 Kz</div>
+      <a href="https://wa.me/244953612474?text=Olá! Quero agendar Babysitting." class="service-link">Agendar agora →</a>
+    </div>
+    <div class="service-card fade-up d1">
+      <img class="service-img" src="limpeza-empresarial.jpg" alt="Limpeza Empresarial" loading="lazy">
+      <div class="service-name">Limpeza Empresarial</div>
+      <div class="service-desc">Escritórios, clínicas, escolas e restaurantes — contratos mensais com relatório de serviço incluído.</div>
+      <div class="service-price">A partir de 89.900 Kz/mês</div>
+      <a href="https://wa.me/244953612474?text=Olá! Quero saber sobre Limpeza Empresarial." class="service-link">Pedir orçamento →</a>
+    </div>
+    <div class="service-card fade-up d2">
+      <img class="service-img" src="estofos-sofas.jpg" alt="Estofos e Sofás" loading="lazy">
+      <div class="service-name">Estofos e Sofás</div>
+      <div class="service-desc">Limpeza profunda de sofás, colchões e tapetes. Remoção de manchas, odores e ácaros.</div>
+      <div class="service-price">A partir de 14.900 Kz</div>
+      <a href="https://wa.me/244953612474?text=Olá! Quero limpar meus estofos/sofás." class="service-link">Agendar agora →</a>
+    </div>
+    <div class="service-card fade-up">
+      <img class="service-img" src="cozinheira.jpg" alt="Cozinheira" loading="lazy">
+      <div class="service-name">Cozinheira ao Domicílio</div>
+      <div class="service-desc">Refeições caseiras preparadas na sua casa. Ideal para famílias ocupadas ou eventos íntimos.</div>
+      <div class="service-price">A partir de 8.900 Kz</div>
+      <a href="https://wa.me/244953612474?text=Olá! Quero agendar Cozinheira ao Domicílio." class="service-link">Agendar agora →</a>
+    </div>
+    <div class="service-card fade-up d1">
+      <img class="service-img" src="limpeza-profunda.jpg" alt="Limpeza Profunda" loading="lazy">
+      <div class="service-name">Limpeza Profunda</div>
+      <div class="service-desc">Limpeza completa e detalhada de todo o espaço — incluindo áreas difíceis, janelas e varandas.</div>
+      <div class="service-price">A partir de 25.000 Kz</div>
+      <a href="https://wa.me/244953612474?text=Olá! Quero agendar Limpeza Profunda." class="service-link">Agendar agora →</a>
+    </div>
+    <div class="service-card fade-up d2">
+      <img class="service-img" src="limpeza-eventos.jpg" alt="Limpeza de Eventos" loading="lazy">
+      <div class="service-name">Limpeza de Eventos</div>
+      <div class="service-desc">Antes, durante e depois do evento. Casamentos, festas, conferências — tudo impecável.</div>
+      <div class="service-price">Orçamento personalizado</div>
+      <a href="https://wa.me/244953612474?text=Olá! Preciso de limpeza para um evento." class="service-link">Pedir orçamento →</a>
+    </div>
+  </div>
+</section>
+
+<!-- EVENTS SECTION -->
+<section class="events" id="eventos">
+  <div class="events-content">
+    <div class="events-visual fade-up">
+      <div class="events-visual-bg"></div>
+      <div class="events-visual-content">
+        <h3>Eventos impecáveis, do início ao fim.</h3>
+        <p>A Midas PuroBrilho garante que o seu evento decorre num espaço limpo, organizado e acolhedor — para que você se concentre apenas nos seus convidados.</p>
+        <div class="event-types">
+          <div class="event-type-badge"><svg class="icon-md" style="color:var(--gold)"><use href="#ic-ring"/></svg> Casamentos e Noivados</div>
+          <div class="event-type-badge"><svg class="icon-md" style="color:var(--gold)"><use href="#ic-cake"/></svg> Aniversários e Festas</div>
+          <div class="event-type-badge"><svg class="icon-md" style="color:var(--gold)"><use href="#ic-building"/></svg> Conferências e Workshops</div>
+          <div class="event-type-badge"><svg class="icon-md" style="color:var(--gold)"><use href="#ic-grad"/></svg> Formaturas e Cerimónias</div>
+        </div>
+      </div>
+    </div>
+    <div class="events-info fade-up d1">
+      <span class="section-label" style="justify-content:flex-start;">Novo serviço</span>
+      <h2>Limpeza para<br>Eventos Especiais</h2>
+      <p>Cobrimos todas as fases do seu evento com equipas dedicadas, produtos profissionais e a pontualidade que nos define.</p>
+      <div class="event-phases">
+        <div class="event-phase">
+          <div class="phase-icon"><svg class="icon-lg" style="color:var(--green)"><use href="#ic-clipboard"/></svg></div>
+          <div class="phase-text">
+            <h4>Antes do Evento</h4>
+            <p>Preparação completa do espaço: limpeza profunda, organização e montagem de ambientes.</p>
+          </div>
+        </div>
+        <div class="event-phase">
+          <div class="phase-icon"><svg class="icon-lg" style="color:var(--green)"><use href="#ic-sparkle"/></svg></div>
+          <div class="phase-text">
+            <h4>Durante o Evento</h4>
+            <p>Equipa de limpeza permanente para manter casas de banho, áreas comuns e corredores impecáveis.</p>
+          </div>
+        </div>
+        <div class="event-phase">
+          <div class="phase-icon"><svg class="icon-lg" style="color:var(--green)"><use href="#ic-broom"/></svg></div>
+          <div class="phase-text">
+            <h4>Após o Evento</h4>
+            <p>Limpeza total pós-evento: recolha de resíduos, lavagem de pavimentos e restauração do espaço original.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PACKAGES -->
+<section class="packages" id="pacotes">
+  <div class="section-header fade-up">
+    <span class="section-label">Subscrição mensal</span>
+    <h2 class="section-title">Escolha o pacote<br>ideal para si</h2>
+    <p class="section-subtitle">Todos os pacotes incluem 2 serviços grátis — Compras ao Domicílio e Acompanhante Hospitalar.</p>
+  </div>
+  <div class="packages-grid">
+    <div class="package-card pkg-bronze fade-up">
+      <div class="package-header">
+        <span class="package-badge"><svg class="icon-xl" style="color:currentColor"><use href="#ic-bronze"/></svg></span>
+        <div class="package-name">Brilho</div>
+        <div class="package-tagline">Para quem quer começar com qualidade Midas</div>
+        <div class="package-price">29.900 Kz <span>/mês</span></div>
+      </div>
+      <div class="package-body">
+        <ul class="package-includes">
+          <li><svg class="icon-sm" style="color:var(--green);flex-shrink:0;margin-top:2px"><use href="#ic-check"/></svg> 1 limpeza doméstica/mês</li>
+          <li><svg class="icon-sm" style="color:var(--green);flex-shrink:0;margin-top:2px"><use href="#ic-check"/></svg> Produtos incluídos</li>
+          <li><svg class="icon-sm" style="color:var(--green);flex-shrink:0;margin-top:2px"><use href="#ic-check"/></svg> Garantia de satisfação</li>
+          <li><svg class="icon-sm" style="color:var(--gold);flex-shrink:0;margin-top:2px"><use href="#ic-star"/></svg> Compras ao domicílio grátis</li>
+          <li><svg class="icon-sm" style="color:var(--gold);flex-shrink:0;margin-top:2px"><use href="#ic-star"/></svg> Acompanhante hospitalar grátis</li>
+        </ul>
+        <a href="https://wa.me/244953612474?text=Olá! Tenho interesse no Pacote Brilho (29.900 Kz)" class="package-btn">Contratar Brilho</a>
+      </div>
+    </div>
+    <div class="package-card pkg-silver fade-up d1">
+      <div class="package-header">
+        <span class="package-badge"><svg class="icon-xl" style="color:currentColor"><use href="#ic-silver"/></svg></span>
+        <div class="package-name">Prata</div>
+        <div class="package-tagline">A escolha da família activa do Zango</div>
+        <div class="package-price">49.900 Kz <span>/mês</span></div>
+      </div>
+      <div class="package-body">
+        <ul class="package-includes">
+          <li><svg class="icon-sm" style="color:var(--green);flex-shrink:0;margin-top:2px"><use href="#ic-check"/></svg> 2 limpezas domésticas/mês</li>
+          <li><svg class="icon-sm" style="color:var(--green);flex-shrink:0;margin-top:2px"><use href="#ic-check"/></svg> Lavandaria 5kg + entrega/mês</li>
+          <li><svg class="icon-sm" style="color:var(--green);flex-shrink:0;margin-top:2px"><use href="#ic-check"/></svg> Prioridade no agendamento</li>
+          <li><svg class="icon-sm" style="color:var(--gold);flex-shrink:0;margin-top:2px"><use href="#ic-star"/></svg> Compras ao domicílio grátis</li>
+          <li><svg class="icon-sm" style="color:var(--gold);flex-shrink:0;margin-top:2px"><use href="#ic-star"/></svg> Acompanhante hospitalar grátis</li>
+        </ul>
+        <a href="https://wa.me/244953612474?text=Olá! Tenho interesse no Pacote Prata (49.900 Kz)" class="package-btn">Contratar Prata</a>
+      </div>
+    </div>
+    <div class="package-card pkg-gold popular fade-up d2">
+      <div class="popular-badge">Mais Popular</div>
+      <div class="package-header">
+        <span class="package-badge"><svg class="icon-xl" style="color:currentColor"><use href="#ic-gold"/></svg></span>
+        <div class="package-name">Ouro</div>
+        <div class="package-tagline">O mais popular — limpeza semanal, roupas e estofos</div>
+        <div class="package-price">84.900 Kz <span>/mês</span></div>
+      </div>
+      <div class="package-body">
+        <ul class="package-includes">
+          <li><svg class="icon-sm" style="color:var(--green);flex-shrink:0;margin-top:2px"><use href="#ic-check"/></svg> 4 limpezas domésticas/mês</li>
+          <li><svg class="icon-sm" style="color:var(--green);flex-shrink:0;margin-top:2px"><use href="#ic-check"/></svg> 2 lavagens de roupa + entrega</li>
+          <li><svg class="icon-sm" style="color:var(--green);flex-shrink:0;margin-top:2px"><use href="#ic-check"/></svg> Limpeza de estofos trimestral</li>
+          <li><svg class="icon-sm" style="color:var(--green);flex-shrink:0;margin-top:2px"><use href="#ic-check"/></svg> Equipa dedicada</li>
+          <li><svg class="icon-sm" style="color:var(--gold);flex-shrink:0;margin-top:2px"><use href="#ic-star"/></svg> Compras + Acompanhante grátis</li>
+        </ul>
+        <a href="https://wa.me/244953612474?text=Olá! Tenho interesse no Pacote Ouro (84.900 Kz)" class="package-btn primary">Contratar Ouro</a>
+      </div>
+    </div>
+    <div class="package-card pkg-diamond fade-up d3">
+      <div class="package-header">
+        <span class="package-badge"><svg class="icon-xl" style="color:currentColor"><use href="#ic-diamond"/></svg></span>
+        <div class="package-name">Diamante</div>
+        <div class="package-tagline">Tudo incluído — zero preocupações domésticas</div>
+        <div class="package-price">149.900 Kz <span>/mês</span></div>
+      </div>
+      <div class="package-body">
+        <ul class="package-includes">
+          <li><svg class="icon-sm" style="color:var(--green);flex-shrink:0;margin-top:2px"><use href="#ic-check"/></svg> Limpeza ilimitada (3x/semana)</li>
+          <li><svg class="icon-sm" style="color:var(--green);flex-shrink:0;margin-top:2px"><use href="#ic-check"/></svg> Lavandaria ilimitada</li>
+          <li><svg class="icon-sm" style="color:var(--green);flex-shrink:0;margin-top:2px"><use href="#ic-check"/></svg> Babysitting 1x/mês (8h)</li>
+          <li><svg class="icon-sm" style="color:var(--green);flex-shrink:0;margin-top:2px"><use href="#ic-check"/></svg> Cozinheira 4x/mês</li>
+          <li><svg class="icon-sm" style="color:var(--green);flex-shrink:0;margin-top:2px"><use href="#ic-check"/></svg> Gestor de conta pessoal</li>
+        </ul>
+        <a href="https://wa.me/244953612474?text=Olá! Tenho interesse no Pacote Diamante (149.900 Kz)" class="package-btn">Contratar Diamante</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FREE SERVICES BANNER -->
+<div class="free-banner fade-up">
+  <div class="free-banner-inner">
+    <div class="free-banner-text">
+      <h3>2 Serviços Grátis<br>para clientes mensais</h3>
+      <p>Todos os clientes com contrato mensal activo recebem estes dois serviços — porque fidelidade merece recompensa.</p>
+    </div>
+    <div class="free-services">
+      <div class="free-service">
+        <div class="free-service-icon"><svg class="icon-xl" style="color:var(--dark)"><use href="#ic-cart"/></svg></div>
+        <div>
+          <div class="free-service-name">Compras ao Domicílio</div>
+          <div class="free-service-desc">Fazemos as suas compras e entregamos em casa. Até 2x/mês.</div>
+        </div>
+        <div class="free-tag">Grátis</div>
+      </div>
+      <div class="free-service">
+        <div class="free-service-icon"><svg class="icon-xl" style="color:var(--dark)"><use href="#ic-hospital"/></svg></div>
+        <div>
+          <div class="free-service-name">Acompanhante Hospitalar</div>
+          <div class="free-service-desc">Acompanhamento em consulta ou exame. Até 1x/mês (4h).</div>
+        </div>
+        <div class="free-tag">Grátis</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- MISSION & VALUES -->
+<section class="mission" id="sobre">
+  <div class="mission-content">
+    <div class="mission-text fade-up">
+      <span class="section-label" style="justify-content:flex-start;">Quem somos</span>
+      <h2>Uma empresa com<br>valores que brilham</h2>
+      <p>O Midas PuroBrilho é uma iniciativa do Grupo Midas Angola, focada em oferecer serviços de limpeza e higienização éticos, profissionais e seguros para famílias, empresas e eventos.</p>
+      <div class="values-grid">
+        <div class="value-card">
+          <span class="value-icon"><svg class="icon-lg" style="color:var(--green)"><use href="#ic-handshake"/></svg></span>
+          <div class="value-name">Ética e Transparência</div>
+          <div class="value-desc">Agimos com honestidade em cada serviço.</div>
+        </div>
+        <div class="value-card">
+          <span class="value-icon"><svg class="icon-lg" style="color:var(--green)"><use href="#ic-clock"/></svg></span>
+          <div class="value-name">Pontualidade</div>
+          <div class="value-desc">Respeitamos os seus horários e prazos.</div>
+        </div>
+        <div class="value-card">
+          <span class="value-icon"><svg class="icon-lg" style="color:var(--green)"><use href="#ic-shield"/></svg></span>
+          <div class="value-name">Segurança</div>
+          <div class="value-desc">Profissionais verificados e treinados.</div>
+        </div>
+        <div class="value-card">
+          <span class="value-icon"><svg class="icon-lg" style="color:var(--green)"><use href="#ic-leaf"/></svg></span>
+          <div class="value-name">Sustentabilidade</div>
+          <div class="value-desc">Uso consciente de recursos e produtos.</div>
+        </div>
+        <div class="value-card">
+          <span class="value-icon"><svg class="icon-lg" style="color:var(--green)"><use href="#ic-bulb"/></svg></span>
+          <div class="value-name">Inovação</div>
+          <div class="value-desc">Métodos modernos de limpeza profissional.</div>
+        </div>
+        <div class="value-card">
+          <span class="value-icon"><svg class="icon-lg" style="color:var(--green)"><use href="#ic-users"/></svg></span>
+          <div class="value-name">Inclusão Social</div>
+          <div class="value-desc">Oportunidades para jovens vulneráveis.</div>
+        </div>
+      </div>
+    </div>
+    <div class="mission-visual fade-up d1">
+      <div class="mission-visual-bg"></div>
+      <div class="mission-visual-content">
+        <h3>A nossa Missão</h3>
+        <p>Oferecer os serviços de limpeza e higienização mais seguros e profissionais do mercado, empregando jovens responsáveis e eficientes, para garantir tranquilidade às famílias, empresas e organizadores de eventos.</p>
+        <h3 style="margin-top:28px;">A nossa Visão</h3>
+        <p>Ser a escolha principal em serviços de limpeza e higienização na província de Luanda, atendendo com excelência famílias, empresas e organizadores de eventos.</p>
+        <div class="vision-badge">
+          <svg class="icon-md" style="color:var(--gold)"><use href="#ic-target"/></svg> Foco: Província de Luanda — com expansão nacional planeada
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="testimonials" id="testemunhos">
+  <div class="section-header fade-up">
+    <span class="section-label">O que dizem</span>
+    <h2 class="section-title">Clientes que confiam<br>no toque Midas</h2>
+    <p class="section-subtitle">A satisfação dos nossos clientes é a nossa maior conquista.</p>
+  </div>
+  <div class="testimonials-grid">
+    <div class="testimonial-card fade-up">
+      <div class="stars"><svg><use href="#ic-star"/></svg><svg><use href="#ic-star"/></svg><svg><use href="#ic-star"/></svg><svg><use href="#ic-star"/></svg><svg><use href="#ic-star"/></svg></div>
+      <div class="testimonial-text">"Contratei o pacote Ouro e a diferença é incrível. A minha casa está sempre impecável, as roupas chegam perfeitamente engomadas e a equipa é super pontual. Recomendo a 100%!"</div>
+      <div class="testimonial-author">
+        <div class="testimonial-avatar">AM</div>
+        <div>
+          <div class="testimonial-name">Ana Maria</div>
+          <div class="testimonial-location">Zango 2, Luanda</div>
+        </div>
+      </div>
+    </div>
+    <div class="testimonial-card fade-up d1">
+      <div class="stars"><svg><use href="#ic-star"/></svg><svg><use href="#ic-star"/></svg><svg><use href="#ic-star"/></svg><svg><use href="#ic-star"/></svg><svg><use href="#ic-star"/></svg></div>
+      <div class="testimonial-text">"Usámos a Midas PuroBrilho para a limpeza do nosso escritório. O profissionalismo é impressionante — equipa fardada, produtos de qualidade e relatório detalhado no final."</div>
+      <div class="testimonial-author">
+        <div class="testimonial-avatar">CP</div>
+        <div>
+          <div class="testimonial-name">Carlos Pedro</div>
+          <div class="testimonial-location">Viana, Luanda</div>
+        </div>
+      </div>
+    </div>
+    <div class="testimonial-card fade-up d2">
+      <div class="stars"><svg><use href="#ic-star"/></svg><svg><use href="#ic-star"/></svg><svg><use href="#ic-star"/></svg><svg><use href="#ic-star"/></svg><svg><use href="#ic-star"/></svg></div>
+      <div class="testimonial-text">"Precisei de limpeza pós-obra urgente e a Midas respondeu em minutos. Em menos de um dia, o meu apartamento estava pronto para mudar. Serviço excepcional!"</div>
+      <div class="testimonial-author">
+        <div class="testimonial-avatar">FS</div>
+        <div>
+          <div class="testimonial-name">Fernanda Santos</div>
+          <div class="testimonial-location">Kilamba, Luanda</div>
+        </div>
+      </div>
+    </div>
+    <div class="testimonial-card fade-up">
+      <div class="stars"><svg><use href="#ic-star"/></svg><svg><use href="#ic-star"/></svg><svg><use href="#ic-star"/></svg><svg><use href="#ic-star"/></svg><svg><use href="#ic-star"/></svg></div>
+      <div class="testimonial-text">"O serviço de babysitting deu-me total confiança. A cuidadora tem formação em saúde e o facto de estar ligada ao Centro Médico Midas é uma tranquilidade enorme."</div>
+      <div class="testimonial-author">
+        <div class="testimonial-avatar">JM</div>
+        <div>
+          <div class="testimonial-name">Joana Mendes</div>
+          <div class="testimonial-location">Talatona, Luanda</div>
+        </div>
+      </div>
+    </div>
+    <div class="testimonial-card fade-up d1">
+      <div class="stars"><svg><use href="#ic-star"/></svg><svg><use href="#ic-star"/></svg><svg><use href="#ic-star"/></svg><svg><use href="#ic-star"/></svg><svg><use href="#ic-star"/></svg></div>
+      <div class="testimonial-text">"Contratámos para o casamento da minha filha. A equipa esteve presente antes, durante e depois do evento. O salão ficou impecável e nós não nos preocupámos com nada!"</div>
+      <div class="testimonial-author">
+        <div class="testimonial-avatar">RM</div>
+        <div>
+          <div class="testimonial-name">Rosa Mateus</div>
+          <div class="testimonial-location">Zango 3, Luanda</div>
+        </div>
+      </div>
+    </div>
+    <div class="testimonial-card fade-up d2">
+      <div class="stars"><svg><use href="#ic-star"/></svg><svg><use href="#ic-star"/></svg><svg><use href="#ic-star"/></svg><svg><use href="#ic-star"/></svg><svg><use href="#ic-star"/></svg></div>
+      <div class="testimonial-text">"O pacote Diamante transformou a minha rotina. Limpeza, lavandaria, cozinheira — tudo resolvido. É como ter uma equipa pessoal em casa. Vale cada kwanza!"</div>
+      <div class="testimonial-author">
+        <div class="testimonial-avatar">DL</div>
+        <div>
+          <div class="testimonial-name">Daniel Lourenço</div>
+          <div class="testimonial-location">Morro Bento, Luanda</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="how" id="como-funciona">
+  <div class="section-header fade-up">
+    <span class="section-label">Simples e rápido</span>
+    <h2 class="section-title">Como funciona</h2>
+    <p class="section-subtitle">Agendar um serviço Midas PuroBrilho é tão fácil quanto enviar uma mensagem.</p>
+  </div>
+  <div class="how-grid">
+    <div class="how-step fade-up">
+      <div class="how-num">1</div>
+      <h4>Contacte-nos</h4>
+      <p>Envie mensagem pelo WhatsApp ou preencha o formulário no site.</p>
+    </div>
+    <div class="how-step fade-up d1">
+      <div class="how-num">2</div>
+      <h4>Confirmação</h4>
+      <p>Respondemos em menos de 1 hora com data, hora e preço.</p>
+    </div>
+    <div class="how-step fade-up d2">
+      <div class="how-num">3</div>
+      <h4>Equipa vai até si</h4>
+      <p>Pontual, fardada e com todo o material necessário incluído.</p>
+    </div>
+    <div class="how-step fade-up d3">
+      <div class="how-num">4</div>
+      <h4>Avalie o resultado</h4>
+      <p>Não ficou 100% satisfeito? Refazemos gratuitamente.</p>
+    </div>
+    <div class="how-step fade-up">
+      <div class="how-num">5</div>
+      <h4>Torne-se mensal</h4>
+      <p>Subscreva um pacote e ganhe descontos e serviços grátis.</p>
+    </div>
+  </div>
+</section>
+
+<!-- LAUNCH OFFER -->
+<section class="launch">
+  <div class="launch-inner fade-up">
+    <div class="launch-tag">Oferta de Lançamento — Primeiros 30 Dias</div>
+    <h2>Primeiro Serviço com 50% de Desconto</h2>
+    <p class="launch-sub">Experimente a qualidade Midas PuroBrilho com metade do preço.<br>Válido para novos clientes nos primeiros 30 dias de operação.</p>
+    <div class="launch-prices">
+      <div class="launch-price-card">
+        <div class="launch-service-name">Limpeza Doméstica (T2/T3)</div>
+        <div class="launch-old">24.900 Kz</div>
+        <div class="launch-new">12.450 Kz</div>
+      </div>
+      <div class="launch-price-card">
+        <div class="launch-service-name">Pós-Obra (apartamento)</div>
+        <div class="launch-old">99.900 Kz</div>
+        <div class="launch-new">49.950 Kz</div>
+      </div>
+      <div class="launch-price-card">
+        <div class="launch-service-name">Lavandaria (5kg)</div>
+        <div class="launch-old">9.900 Kz</div>
+        <div class="launch-new">4.950 Kz</div>
+      </div>
+      <div class="launch-price-card">
+        <div class="launch-service-name">Babysitting (dia)</div>
+        <div class="launch-old">9.900 Kz</div>
+        <div class="launch-new">4.950 Kz</div>
+      </div>
+      <div class="launch-price-card">
+        <div class="launch-service-name">Sofá (3 lugares)</div>
+        <div class="launch-old">19.900 Kz</div>
+        <div class="launch-new">9.950 Kz</div>
+      </div>
+    </div>
+    <a href="https://wa.me/244953612474?text=Olá! Quero aproveitar a oferta de lançamento com 50%25 de desconto!" class="launch-cta">Aproveitar Agora</a>
+  </div>
+</section>
+
+<!-- INLINE BOOKING FORM -->
+<section class="booking-section" id="agendar">
+  <div class="booking-container">
+    <div class="booking-info fade-up">
+      <span class="section-label" style="justify-content:flex-start;">Agende agora</span>
+      <h2>Solicite o seu<br>serviço em minutos</h2>
+      <p>Preencha o formulário ao lado e a nossa equipa entra em contacto consigo em menos de 1 hora pelo WhatsApp.</p>
+      <div class="booking-benefits">
+        <div class="booking-benefit">
+          <div class="benefit-icon"><svg class="icon-md" style="color:var(--green)"><use href="#ic-check"/></svg></div>
+          <span>Resposta garantida em menos de 1 hora</span>
+        </div>
+        <div class="booking-benefit">
+          <div class="benefit-icon"><svg class="icon-md" style="color:var(--green)"><use href="#ic-package"/></svg></div>
+          <span>Produtos e materiais incluídos no preço</span>
+        </div>
+        <div class="booking-benefit">
+          <div class="benefit-icon"><svg class="icon-md" style="color:var(--green)"><use href="#ic-shirt"/></svg></div>
+          <span>Equipa fardada e treinada</span>
+        </div>
+        <div class="booking-benefit">
+          <div class="benefit-icon"><svg class="icon-md" style="color:var(--green)"><use href="#ic-shield"/></svg></div>
+          <span>Profissionais verificados e sem antecedentes</span>
+        </div>
+        <div class="booking-benefit">
+          <div class="benefit-icon"><svg class="icon-md" style="color:var(--green)"><use href="#ic-award"/></svg></div>
+          <span>Garantia de satisfação ou refazemos grátis</span>
+        </div>
+      </div>
+    </div>
+    <div class="booking-form-card fade-up d1">
+      <h3>Preencha os seus dados</h3>
+      <form id="bookingForm" onsubmit="submitFullBooking(event)">
+        <div class="form-group">
+          <label>Nome completo</label>
+          <input type="text" id="bookName" placeholder="Ex: Maria José" required>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Telefone / WhatsApp</label>
+            <input type="tel" id="bookPhone" placeholder="9XX XXX XXX" required>
+          </div>
+          <div class="form-group">
+            <label>Zona / Bairro</label>
+            <input type="text" id="bookZone" placeholder="Ex: Zango 2" required>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Serviço desejado</label>
+          <select id="bookService" required>
+            <option value="">Selecione o serviço</option>
+            <option>Limpeza Doméstica</option>
+            <option>Limpeza Pós-Obra</option>
+            <option>Lavandaria + Entrega</option>
+            <option>Babysitting Qualificado</option>
+            <option>Limpeza Empresarial</option>
+            <option>Estofos e Sofás</option>
+            <option>Limpeza de Eventos</option>
+            <option>Cozinheira ao Domicílio</option>
+            <option>Limpeza Profunda</option>
+            <option>Pacote Brilho (Mensal)</option>
+            <option>Pacote Prata (Mensal)</option>
+            <option>Pacote Ouro (Mensal)</option>
+            <option>Pacote Diamante (Mensal)</option>
+          </select>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Data preferida</label>
+            <input type="date" id="bookDate">
+          </div>
+          <div class="form-group">
+            <label>Horário preferido</label>
+            <select id="bookTime">
+              <option value="">Selecione</option>
+              <option>07h00 – 09h00</option>
+              <option>09h00 – 12h00</option>
+              <option>12h00 – 15h00</option>
+              <option>15h00 – 19h00</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Observações (opcional)</label>
+          <input type="text" id="bookNotes" placeholder="Detalhes adicionais sobre o serviço...">
+        </div>
+        <button type="submit" class="btn-book">Enviar Pedido pelo WhatsApp</button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section" id="contacto">
+  <div class="cta-inner fade-up">
+    <h2>Pronto para ter o espaço<br>que merece?</h2>
+    <p>Agende agora pelo WhatsApp e receba resposta em menos de 1 hora.<br>Primeiro serviço com 50% de desconto para novos clientes.</p>
+    <div class="cta-buttons">
+      <a href="https://wa.me/244953612474?text=Olá! Gostaria de agendar um serviço Midas PuroBrilho." class="btn-primary">Agendar pelo WhatsApp</a>
+      <a href="tel:+244953612474" class="btn-secondary">Ligar Agora</a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer id="footer">
+  <div class="footer-content">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div style="display:flex;align-items:center;gap:12px;margin-bottom:8px;">
+          <svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg" style="width:56px;height:56px;flex-shrink:0;">
+            <circle cx="50" cy="58" r="38" fill="none" stroke="#1B7B3A" stroke-width="5"/>
+            <circle cx="50" cy="58" r="35" fill="#0F5025" opacity="0.25"/>
+            <path d="M62 42 C80 50 82 72 68 88 C64 92 56 94 50 90 C44 86 42 78 44 70 C46 60 54 46 62 42 Z" fill="#1B7B3A"/>
+            <path d="M62 44 C58 56 54 68 52 82" fill="none" stroke="#0F5025" stroke-width="1.5" opacity="0.5"/>
+            <line x1="56" y1="14" x2="36" y2="72" stroke="#E8A000" stroke-width="4.5" stroke-linecap="round"/>
+            <path d="M28 72 Q32 66 36 72 L38 80 Q32 84 26 80 Z" fill="#E8A000"/>
+            <path d="M32 71 Q36 65 40 72 L42 80 Q36 84 30 80 Z" fill="#D4900A"/>
+            <path d="M36 72 Q40 66 44 72 L44 80 Q40 84 36 80 Z" fill="#E8A000"/>
+            <path d="M24 74 Q28 68 32 74 L32 82 Q28 86 22 82 Z" fill="#D4900A" opacity="0.8"/>
+            <path d="M72 24 L74 18 L76 24 L82 26 L76 28 L74 34 L72 28 L66 26 Z" fill="#E8A000"/>
+            <path d="M84 38 L85.5 34 L87 38 L91 39.5 L87 41 L85.5 45 L84 41 L80 39.5 Z" fill="#E8A000" opacity="0.85"/>
+            <path d="M68 12 L69 9 L70 12 L73 13 L70 14 L69 17 L68 14 L65 13 Z" fill="#E8A000" opacity="0.6"/>
+          </svg>
+          <div>
+            <div class="brand-name"><span style="color:var(--white)">Midas</span> <span style="color:var(--gold)">PuroBrilho</span></div>
+            <div class="brand-slogan">Nós Limpamos, Você Relaxa</div>
+          </div>
+        </div>
+        <p>Empresa de serviços de limpeza profissional, lavandaria e cuidado pessoal — com sede no Zango 2, Luanda. Parte do Grupo Midas Angola.</p>
+        <div class="footer-contacts">
+          <div class="footer-contact"><svg class="icon-md" style="color:var(--gold);flex-shrink:0"><use href="#ic-phone"/></svg> (+244) 953 612 474 / 953 612 474</div>
+          <div class="footer-contact"><svg class="icon-md" style="color:var(--gold);flex-shrink:0"><use href="#ic-pin"/></svg> Zango 2, Luanda — Angola</div>
+          <div class="footer-contact"><svg class="icon-md" style="color:var(--gold);flex-shrink:0"><use href="#ic-clock"/></svg> Seg–Sáb: 07h00 – 19h00</div>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h5>Serviços</h5>
+        <ul>
+          <li><a href="#servicos">Limpeza Doméstica</a></li>
+          <li><a href="#servicos">Limpeza Pós-Obra</a></li>
+          <li><a href="#servicos">Lavandaria</a></li>
+          <li><a href="#servicos">Babysitting</a></li>
+          <li><a href="#servicos">Estofos e Sofás</a></li>
+          <li><a href="#servicos">Empresas e B2B</a></li>
+          <li><a href="#eventos">Eventos</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h5>Pacotes</h5>
+        <ul>
+          <li><a href="#pacotes">Pacote Brilho</a></li>
+          <li><a href="#pacotes">Pacote Prata</a></li>
+          <li><a href="#pacotes">Pacote Ouro</a></li>
+          <li><a href="#pacotes">Pacote Diamante</a></li>
+          <li><a href="https://wa.me/244953612474?text=Olá! Quero aproveitar a oferta de lançamento com 50%25 de desconto!">Oferta de Lançamento</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h5>Grupo Midas</h5>
+        <ul>
+          <li><a href="https://wa.me/244953612474?text=Olá! Quero saber mais sobre o Centro Médico Midas.">Centro Médico Midas</a></li>
+          <li><a href="https://wa.me/244953612474?text=Olá! Quero saber mais sobre o Complexo Escolar Midas.">Complexo Escolar Midas</a></li>
+          <li><a href="https://wa.me/244953612474?text=Olá! Quero saber mais sobre o Centro de Formação Midas.">Centro de Formação</a></li>
+          <li><a href="https://wa.me/244953612474?text=Olá! Quero saber mais sobre o Midas Saúde 360°.">Midas Saúde 360°</a></li>
+          <li><a href="https://wa.me/244953612474?text=Olá! Quero saber mais sobre o Midas Pro Emprego.">Midas Pro Emprego</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 Midas PuroBrilho — Grupo Midas Angola. Todos os direitos reservados.</p>
+      <div class="social-links">
+        <a href="https://www.facebook.com/midaspurobrilho" target="_blank" rel="noopener" class="social-link" title="Facebook"><svg class="icon-md" style="color:white"><use href="#ic-facebook"/></svg></a>
+        <a href="https://www.instagram.com/midaspurobrilho" target="_blank" rel="noopener" class="social-link" title="Instagram"><svg class="icon-md" style="color:white"><use href="#ic-instagram"/></svg></a>
+        <a href="https://www.tiktok.com/@midaspurobrilho" target="_blank" rel="noopener" class="social-link" title="TikTok"><svg class="icon-md" style="color:white"><use href="#ic-tiktok"/></svg></a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- WHATSAPP FLOAT -->
+<a href="https://wa.me/244953612474?text=Olá! Gostaria de saber mais sobre os serviços Midas PuroBrilho." class="whatsapp-float" target="_blank" title="WhatsApp"><svg width="28" height="28" style="color:white"><use href="#ic-whatsapp"/></svg></a>
+
+<script>
+  // Scroll animations
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+
+  // Nav scroll effect
+  window.addEventListener('scroll', () => {
+    document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 40);
+  });
+
+  // Hamburger menu
+  const hamburger = document.getElementById('hamburger');
+  const mobileMenu = document.getElementById('mobileMenu');
+  hamburger.addEventListener('click', () => {
+    hamburger.classList.toggle('active');
+    mobileMenu.classList.toggle('open');
+    document.body.style.overflow = mobileMenu.classList.contains('open') ? 'hidden' : '';
+  });
+  function closeMenu() {
+    hamburger.classList.remove('active');
+    mobileMenu.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  // Hero booking form
+  function submitBooking(e) {
+    e.preventDefault();
+    const service = document.getElementById('heroService').value;
+    const name = document.getElementById('heroName').value;
+    const phone = document.getElementById('heroPhone').value;
+    const zone = document.getElementById('heroZone').value;
+    const msg = `Olá! Quero agendar um serviço.\n\n` +
+      `*Serviço:* ${service}\n` +
+      `*Nome:* ${name}\n` +
+      `*Telefone:* ${phone}\n` +
+      `*Zona:* ${zone || 'Não especificada'}`;
+    window.open(`https://wa.me/244953612474?text=${encodeURIComponent(msg)}`, '_blank');
+  }
+
+  // Full booking form
+  function submitFullBooking(e) {
+    e.preventDefault();
+    const name = document.getElementById('bookName').value;
+    const phone = document.getElementById('bookPhone').value;
+    const zone = document.getElementById('bookZone').value;
+    const service = document.getElementById('bookService').value;
+    const date = document.getElementById('bookDate').value;
+    const time = document.getElementById('bookTime').value;
+    const notes = document.getElementById('bookNotes').value;
+    const msg = `Olá! Quero agendar um serviço Midas PuroBrilho.\n\n` +
+      `*Nome:* ${name}\n` +
+      `*Telefone:* ${phone}\n` +
+      `*Zona:* ${zone}\n` +
+      `*Serviço:* ${service}\n` +
+      (date ? `*Data:* ${date}\n` : '') +
+      (time ? `*Horário:* ${time}\n` : '') +
+      (notes ? `*Observações:* ${notes}` : '');
+    window.open(`https://wa.me/244953612474?text=${encodeURIComponent(msg)}`, '_blank');
+  }
+
+  // Set minimum date to today
+  const dateInput = document.getElementById('bookDate');
+  if (dateInput) dateInput.min = new Date().toISOString().split('T')[0];
+</script>
+</body>
+</html>
