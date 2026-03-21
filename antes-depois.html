@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Antes e Depois — Midas PuroBrilho</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --green: #1B7B3A;
+    --green-dark: #0F5025;
+    --green-mid: #2E9E55;
+    --green-lite: #E8F5EC;
+    --gold: #E8A000;
+    --gold-bright: #F5B800;
+    --white: #FFFFFF;
+    --off-white: #F9FBF9;
+    --dark: #0D1F14;
+    --grey: #6B7A6F;
+    --grey-lite: #F0F5F1;
+    --red: #C62828;
+    --radius: 16px;
+    --shadow: 0 4px 24px rgba(0,0,0,0.08);
+    --shadow-lg: 0 16px 48px rgba(0,0,0,0.12);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    background: var(--white);
+    color: var(--dark);
+    overflow-x: hidden;
+    line-height: 1.6;
+  }
+
+  /* NAV */
+  nav {
+    position: sticky; top: 0; z-index: 100;
+    background: var(--white);
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 5%; height: 72px;
+    box-shadow: 0 2px 16px rgba(0,0,0,0.06);
+  }
+
+  .nav-logo {
+    display: flex; align-items: center; gap: 10px;
+    text-decoration: none;
+  }
+  .nav-logo-text {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.15rem; color: var(--green-dark);
+    font-weight: 700; line-height: 1.1;
+  }
+  .nav-logo-text span {
+    display: block; font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 0.62rem; font-weight: 400; color: var(--grey);
+    letter-spacing: 1.5px; text-transform: uppercase;
+  }
+
+  .nav-back {
+    display: inline-flex; align-items: center; gap: 8px;
+    color: var(--green); text-decoration: none;
+    font-weight: 600; font-size: 0.9rem;
+    padding: 10px 24px; border-radius: 50px;
+    border: 2px solid var(--green);
+    transition: all 0.2s;
+  }
+  .nav-back:hover {
+    background: var(--green); color: var(--white);
+  }
+
+  /* HERO */
+  .hero {
+    background: linear-gradient(135deg, var(--green-dark) 0%, var(--green) 60%, var(--green-mid) 100%);
+    padding: 80px 5% 60px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+    background: radial-gradient(circle at 30% 50%, rgba(245,184,0,0.1) 0%, transparent 60%);
+  }
+  .hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2rem, 5vw, 3.2rem);
+    color: var(--white);
+    margin-bottom: 16px;
+    position: relative;
+  }
+  .hero p {
+    color: rgba(255,255,255,0.85);
+    font-size: clamp(1rem, 2vw, 1.15rem);
+    max-width: 600px;
+    margin: 0 auto;
+    position: relative;
+  }
+  .hero-label {
+    display: inline-block;
+    background: rgba(245,184,0,0.2);
+    color: var(--gold-bright);
+    padding: 6px 20px;
+    border-radius: 50px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+    position: relative;
+  }
+
+  /* GRID */
+  .grid-section {
+    padding: 60px 5% 80px;
+    background: var(--off-white);
+  }
+  .grid-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+    gap: 32px;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  /* CARD */
+  .card {
+    background: var(--white);
+    border-radius: var(--radius);
+    overflow: hidden;
+    box-shadow: var(--shadow);
+    transition: transform 0.3s, box-shadow 0.3s;
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  .card.visible {
+    opacity: 1;
+    transform: translateY(0);
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out, box-shadow 0.3s, transform 0.3s;
+  }
+  .card:hover {
+    transform: translateY(-6px);
+    box-shadow: var(--shadow-lg);
+  }
+
+  .card-images {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    position: relative;
+  }
+  .card-img-wrap {
+    position: relative;
+    overflow: hidden;
+  }
+  .card-img-wrap img {
+    width: 100%;
+    height: 220px;
+    object-fit: cover;
+    display: block;
+  }
+  .card-img-wrap.before img {
+    filter: saturate(0.4) brightness(0.7) contrast(0.9);
+  }
+
+  .badge {
+    position: absolute;
+    top: 10px;
+    padding: 4px 14px;
+    border-radius: 50px;
+    font-size: 0.7rem;
+    font-weight: 700;
+    color: var(--white);
+    letter-spacing: 0.5px;
+    z-index: 2;
+  }
+  .badge-antes {
+    left: 10px;
+    background: var(--red);
+  }
+  .badge-depois {
+    right: 10px;
+    background: var(--green);
+  }
+
+  .card-divider {
+    position: absolute;
+    top: 0; bottom: 0;
+    left: 50%;
+    width: 3px;
+    background: var(--white);
+    z-index: 2;
+  }
+
+  .card-body {
+    padding: 20px 24px;
+  }
+  .card-body h3 {
+    font-size: 1.1rem;
+    color: var(--green-dark);
+    margin-bottom: 6px;
+    font-weight: 700;
+  }
+  .card-body p {
+    font-size: 0.88rem;
+    color: var(--grey);
+    line-height: 1.5;
+  }
+
+  /* CTA */
+  .cta-section {
+    padding: 60px 5% 80px;
+    text-align: center;
+    background: var(--white);
+  }
+  .cta-section h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.5rem, 3vw, 2rem);
+    color: var(--green-dark);
+    margin-bottom: 12px;
+  }
+  .cta-section p {
+    color: var(--grey);
+    font-size: 1rem;
+    margin-bottom: 32px;
+    max-width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .btn-whatsapp {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: #25D366;
+    color: var(--white);
+    padding: 16px 40px;
+    border-radius: 50px;
+    font-size: 1.05rem;
+    font-weight: 700;
+    text-decoration: none;
+    transition: all 0.3s;
+    box-shadow: 0 4px 20px rgba(37,211,102,0.3);
+  }
+  .btn-whatsapp:hover {
+    background: #1EBE5A;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 28px rgba(37,211,102,0.4);
+  }
+  .btn-whatsapp svg {
+    width: 22px; height: 22px; fill: currentColor;
+  }
+
+  .phone-link {
+    display: inline-block;
+    margin-top: 20px;
+    color: var(--green);
+    font-weight: 600;
+    font-size: 1rem;
+    text-decoration: none;
+  }
+  .phone-link:hover {
+    text-decoration: underline;
+  }
+
+  /* FOOTER */
+  footer {
+    background: var(--green-dark);
+    color: rgba(255,255,255,0.7);
+    text-align: center;
+    padding: 32px 5%;
+    font-size: 0.85rem;
+  }
+  footer a {
+    color: var(--gold-bright);
+    text-decoration: none;
+    font-weight: 600;
+  }
+  footer a:hover { text-decoration: underline; }
+  footer .footer-links {
+    margin-top: 12px;
+  }
+
+  /* RESPONSIVE */
+  @media (max-width: 768px) {
+    .grid-container {
+      grid-template-columns: 1fr;
+    }
+    .card-img-wrap img {
+      height: 160px;
+    }
+    .hero {
+      padding: 60px 5% 40px;
+    }
+    nav {
+      height: 64px;
+      padding: 0 4%;
+    }
+    .nav-back {
+      padding: 8px 16px;
+      font-size: 0.82rem;
+    }
+  }
+
+  @media (max-width: 400px) {
+    .card-images {
+      grid-template-columns: 1fr;
+    }
+    .badge-depois {
+      right: auto;
+      left: 10px;
+    }
+    .card-divider {
+      display: none;
+    }
+    .card-img-wrap img {
+      height: 180px;
+    }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="MidasPuroBrilho_Site.html" class="nav-logo">
+    <div class="nav-logo-text">
+      Midas PuroBrilho
+      <span>Grupo Midas Angola</span>
+    </div>
+  </a>
+  <a href="MidasPuroBrilho_Site.html" class="nav-back">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5"/><path d="M12 19l-7-7 7-7"/></svg>
+    Voltar ao Site
+  </a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-label">Resultados comprovados</div>
+  <h1>Antes e Depois</h1>
+  <p>Veja o impacto real do trabalho profissional do Midas PuroBrilho</p>
+</section>
+
+<!-- GRID -->
+<section class="grid-section">
+  <div class="grid-container">
+
+    <!-- Card 1: Lavandaria e Engomadoria -->
+    <div class="card">
+      <div class="card-images">
+        <div class="card-img-wrap before">
+          <img src="https://images.unsplash.com/photo-1517677208171-0bc6725a3e60?w=400&h=300&fit=crop" alt="Roupa suja antes da lavagem" loading="lazy">
+          <span class="badge badge-antes">ANTES</span>
+        </div>
+        <div class="card-img-wrap">
+          <img src="https://images.unsplash.com/photo-1489274495757-95c7c837b101?w=400&h=300&fit=crop" alt="Roupa lavada e dobrada" loading="lazy">
+          <span class="badge badge-depois">DEPOIS</span>
+        </div>
+        <div class="card-divider"></div>
+      </div>
+      <div class="card-body">
+        <h3>Lavandaria e Engomadoria</h3>
+        <p>Roupas manchadas e amarrotadas transformadas em pe&#231;as impec&#225;veis, perfumadas e prontas a usar.</p>
+      </div>
+    </div>
+
+    <!-- Card 2: Engomadoria Profissional -->
+    <div class="card">
+      <div class="card-images">
+        <div class="card-img-wrap before">
+          <img src="https://images.unsplash.com/photo-1545173168-9f1947eebb7f?w=400&h=300&fit=crop" alt="Roupa amarrotada antes" loading="lazy">
+          <span class="badge badge-antes">ANTES</span>
+        </div>
+        <div class="card-img-wrap">
+          <img src="https://images.unsplash.com/photo-1604335399105-a0c585fd81a1?w=400&h=300&fit=crop" alt="Camisas engomadas" loading="lazy">
+          <span class="badge badge-depois">DEPOIS</span>
+        </div>
+        <div class="card-divider"></div>
+      </div>
+      <div class="card-body">
+        <h3>Engomadoria Profissional</h3>
+        <p>Pe&#231;as amarrotadas passadas a ferro com perfei&#231;&#227;o — prontas para vestir.</p>
+      </div>
+    </div>
+
+    <!-- Card 3: Escritorios -->
+    <div class="card">
+      <div class="card-images">
+        <div class="card-img-wrap before">
+          <img src="https://images.unsplash.com/photo-1497366216548-37526070297c?w=400&h=300&fit=crop&bri=-20&sat=-80" alt="Escrit&#243;rio desorganizado" loading="lazy">
+          <span class="badge badge-antes">ANTES</span>
+        </div>
+        <div class="card-img-wrap">
+          <img src="https://images.unsplash.com/photo-1497366216548-37526070297c?w=400&h=300&fit=crop" alt="Escrit&#243;rio limpo e organizado" loading="lazy">
+          <span class="badge badge-depois">DEPOIS</span>
+        </div>
+        <div class="card-divider"></div>
+      </div>
+      <div class="card-body">
+        <h3>Escrit&#243;rios Empresariais</h3>
+        <p>Ambientes corporativos desorganizados transformados em espa&#231;os produtivos e profissionais.</p>
+      </div>
+    </div>
+
+    <!-- Card 4: Escolas e Salas de Aula -->
+    <div class="card">
+      <div class="card-images">
+        <div class="card-img-wrap before">
+          <img src="https://images.unsplash.com/photo-1580582932707-520aed937b7b?w=400&h=300&fit=crop" alt="Sala de aula antes" loading="lazy">
+          <span class="badge badge-antes">ANTES</span>
+        </div>
+        <div class="card-img-wrap">
+          <img src="https://images.unsplash.com/photo-1580582932707-520aed937b7b?w=400&h=300&fit=crop" alt="Sala de aula limpa" loading="lazy">
+          <span class="badge badge-depois">DEPOIS</span>
+        </div>
+        <div class="card-divider"></div>
+      </div>
+      <div class="card-body">
+        <h3>Escolas e Salas de Aula</h3>
+        <p>Espa&#231;os educativos higienizados e organizados para o bem-estar dos alunos e professores.</p>
+      </div>
+    </div>
+
+    <!-- Card 5: Centros Medicos -->
+    <div class="card">
+      <div class="card-images">
+        <div class="card-img-wrap before">
+          <img src="https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?w=400&h=300&fit=crop" alt="Centro m&#233;dico antes" loading="lazy">
+          <span class="badge badge-antes">ANTES</span>
+        </div>
+        <div class="card-img-wrap">
+          <img src="https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?w=400&h=300&fit=crop" alt="Centro m&#233;dico limpo" loading="lazy">
+          <span class="badge badge-depois">DEPOIS</span>
+        </div>
+        <div class="card-divider"></div>
+      </div>
+      <div class="card-body">
+        <h3>Centros M&#233;dicos e Cl&#237;nicas</h3>
+        <p>Ambientes hospitalares desinfectados com rigor, cumprindo normas de higiene e biosseguran&#231;a.</p>
+      </div>
+    </div>
+
+    <!-- Card 6: Casas e Apartamentos -->
+    <div class="card">
+      <div class="card-images">
+        <div class="card-img-wrap before">
+          <img src="https://images.unsplash.com/photo-1584622650111-993a426fbf0a?w=400&h=300&fit=crop" alt="Casa antes da limpeza" loading="lazy">
+          <span class="badge badge-antes">ANTES</span>
+        </div>
+        <div class="card-img-wrap">
+          <img src="https://images.unsplash.com/photo-1584622650111-993a426fbf0a?w=400&h=300&fit=crop" alt="Casa limpa" loading="lazy">
+          <span class="badge badge-depois">DEPOIS</span>
+        </div>
+        <div class="card-divider"></div>
+      </div>
+      <div class="card-body">
+        <h3>Casas e Apartamentos</h3>
+        <p>Lares transformados em espa&#231;os acolhedores, organizados e com cheiro a limpo.</p>
+      </div>
+    </div>
+
+    <!-- Card 7: Sofas -->
+    <div class="card">
+      <div class="card-images">
+        <div class="card-img-wrap before">
+          <img src="https://images.unsplash.com/photo-1493663284031-b7e3aefcae8e?w=400&h=300&fit=crop" alt="Sof&#225; manchado" loading="lazy">
+          <span class="badge badge-antes">ANTES</span>
+        </div>
+        <div class="card-img-wrap">
+          <img src="https://images.unsplash.com/photo-1493663284031-b7e3aefcae8e?w=400&h=300&fit=crop" alt="Sof&#225; limpo" loading="lazy">
+          <span class="badge badge-depois">DEPOIS</span>
+        </div>
+        <div class="card-divider"></div>
+      </div>
+      <div class="card-body">
+        <h3>Sof&#225;s e Estofos</h3>
+        <p>Estofos com manchas e odores recuperados como novos com limpeza profissional a seco.</p>
+      </div>
+    </div>
+
+    <!-- Card 8: Pos-Obra -->
+    <div class="card">
+      <div class="card-images">
+        <div class="card-img-wrap before">
+          <img src="https://images.unsplash.com/photo-1581578731548-c64695cc6952?w=400&h=300&fit=crop" alt="Espa&#231;o p&#243;s-obra" loading="lazy">
+          <span class="badge badge-antes">ANTES</span>
+        </div>
+        <div class="card-img-wrap">
+          <img src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=400&h=300&fit=crop" alt="Espa&#231;o limpo e pronto" loading="lazy">
+          <span class="badge badge-depois">DEPOIS</span>
+        </div>
+        <div class="card-divider"></div>
+      </div>
+      <div class="card-body">
+        <h3>P&#243;s-Obra / Constru&#231;&#227;o</h3>
+        <p>Espa&#231;os p&#243;s-constru&#231;&#227;o limpos de p&#243;, entulho e res&#237;duos — prontos para habitar.</p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section">
+  <h2>Pronto para transformar o seu espa&#231;o?</h2>
+  <p>O Midas PuroBrilho traz resultados vis&#237;veis. Fale connosco e agende o seu servi&#231;o.</p>
+  <a href="https://wa.me/244953612474?text=Ol%C3%A1!%20Vi%20as%20transforma%C3%A7%C3%B5es%20no%20site%20e%20quero%20agendar%20um%20servi%C3%A7o." class="btn-whatsapp">
+    <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+    Quero Esta Transforma&#231;&#227;o
+  </a>
+  <br>
+  <a href="tel:+244953612474" class="phone-link">+244 953 612 474</a>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p>&copy; 2024 Midas PuroBrilho — Grupo Midas Angola</p>
+  <div class="footer-links">
+    <a href="MidasPuroBrilho_Site.html">Voltar ao site principal</a>
+  </div>
+</footer>
+
+<script>
+// Fade-up animation on scroll
+document.addEventListener('DOMContentLoaded', function() {
+  const cards = document.querySelectorAll('.card');
+  const observer = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry, index) {
+      if (entry.isIntersecting) {
+        // Stagger the animation
+        var el = entry.target;
+        var delay = Array.prototype.indexOf.call(cards, el) * 100;
+        setTimeout(function() {
+          el.classList.add('visible');
+        }, delay);
+        observer.unobserve(el);
+      }
+    });
+  }, { threshold: 0.1 });
+
+  cards.forEach(function(card) {
+    observer.observe(card);
+  });
+});
+</script>
+
+</body>
+</html>
